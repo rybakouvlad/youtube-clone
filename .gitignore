@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
-typings/
+
 
 # TypeScript cache
 *.tsbuildinfo
@@ -102,3 +102,21 @@ dist
 
 # TernJS port file
 .tern-port
+
+# System Files
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# Links
+*.lnk
+.idea/
+*.PEM
+.vscode/
+
+# Logs
+npm-debug.log
+
+# Block build and server
+/dist
+/server
