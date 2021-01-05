@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 interface Html {
-    scripts: Array<string>
+    scripts: Array<string>;
 }
 
-export function Html({ children, scripts }: React.PropsWithChildren<Html>) {
+export default function Html({ children, scripts }: React.PropsWithChildren<Html>) {
     return (
         <html>
             <head>
@@ -15,8 +15,10 @@ export function Html({ children, scripts }: React.PropsWithChildren<Html>) {
             </head>
             <body>
                 <div id="root">{children}</div>
-                {scripts.map((script, index) => <script src={script} key={index} />)}
+                {scripts.map((script, index) => (
+                    <script src={script} key={index} />
+                ))}
             </body>
         </html>
-    )
+    );
 }

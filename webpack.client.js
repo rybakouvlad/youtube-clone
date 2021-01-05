@@ -1,15 +1,16 @@
-const path = require("path")
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackNotifierPlugin = require('webpack-notifier')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpackConfig = require('./webpack.config')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpackConfig = require('./webpack.config');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env, argv) => {
-    const watchMode = argv.liveReload || false
-    const modeEnv = argv.mode || 'development'
-    const isProd = modeEnv === 'production'
-    const config = webpackConfig(modeEnv)
+    const watchMode = argv.liveReload || false;
+    const modeEnv = argv.mode || 'development';
+    const isProd = modeEnv === 'production';
+    const config = webpackConfig(modeEnv);
 
     const optimizations = {
         splitChunks: {
@@ -23,7 +24,7 @@ module.exports = (env, argv) => {
             },
         },
         minimizer: [],
-    }
+    };
 
     if (isProd) {
         // optimizations.minimizer.push(new UglifyJsPlugin())
@@ -31,7 +32,7 @@ module.exports = (env, argv) => {
 
     return {
         devServer: {
-            contentBase: path.join(__dirname, "dist"),
+            contentBase: path.join(__dirname, 'dist'),
             compress: true,
             port: 4200,
             watchContentBase: true,
@@ -42,13 +43,10 @@ module.exports = (env, argv) => {
         },
         resolve: config.resolve,
         module: {
-            rules: [
-                config.modules.js,
-                config.modules.sass,
-                config.modules.img,
-            ],
+            rules: [config.modules.js, config.modules.sass, config.modules.img],
         },
         plugins: [
+            new ESLintPlugin(),
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
                 template: './src/Html/Browser.html',
@@ -67,5 +65,5 @@ module.exports = (env, argv) => {
             hints: false,
         },
         optimization: optimizations,
-    }
-}
+    };
+};
