@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
     plugins: [new ESLintPlugin(), new CleanWebpackPlugin(), new MiniCssExtractPlugin()],
     resolve: config.resolve,
     module: {
-      rules: [config.modules.js, config.modules.sassIsomorph /* , config.modules.img */],
+      rules: [config.modules.js, config.modules.sassIsomorph, config.modules.img],
     },
     entry: {
       main: './src/Server.tsx',
