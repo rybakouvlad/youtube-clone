@@ -5,6 +5,8 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { App } from 'App';
 import Html from './Html/Server';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mediaServer = require('./broadcast/media_server');
 
 const port = 3000;
 const server = express();
@@ -27,3 +29,5 @@ server.get('*', async (req, res) => {
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
+
+mediaServer.run();
