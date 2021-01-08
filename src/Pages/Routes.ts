@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { Home } from 'Pages/Home';
 import { Content } from 'Pages/Content';
-
+import { Player } from 'Pages/Player';
 interface Route {
   link: string;
   title: string;
@@ -20,5 +20,10 @@ export const Pages: Array<Route> = [
     link: '/content',
     title: 'Content',
     component: Content,
+  },
+  {
+    link: '/player',
+    title: 'Player',
+    component: Player,
   },
 ];
