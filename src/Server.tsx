@@ -5,8 +5,12 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { App } from 'App';
 import Html from './Html/Server';
+import bodyParser from 'body-parser';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mediaServer = require('./broadcast/media_server');
+
+import './MongoDB/mongoDB';
+import MongoRouter from './routes/mongo.routers';
 
 const port = 3000;
 const server = express();
@@ -17,6 +21,8 @@ fs.readdirSync('./dist/assets').forEach((file) => {
 });
 
 server.use('/assets', express.static('./dist/assets'));
+server.use(bodyParser.json());
+server.use('/', MongoRouter);
 
 server.get('*', async (req, res) => {
   ReactDOMServer.renderToNodeStream(
