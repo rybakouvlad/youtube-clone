@@ -20,9 +20,9 @@ export default (user: ILoginData) => {
         {},
       ),
     },
-    process.env.JWT_SECRET || '',
+    'UpFJfpWKYteH5rMHSxst' || '',
     {
-      expiresIn: process.env.JWT_MAX_AGE,
+      expiresIn: '7d',
       algorithm: 'HS256',
     },
   );

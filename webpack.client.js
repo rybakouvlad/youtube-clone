@@ -40,6 +40,9 @@ module.exports = (env, argv) => {
       hot: true,
       open: true,
       historyApiFallback: true,
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
     },
     resolve: config.resolve,
     module: {

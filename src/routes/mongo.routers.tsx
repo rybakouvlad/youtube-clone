@@ -6,7 +6,7 @@ import createJWToken from '../MongoDB/utils/createJWToken';
 const router = Router();
 
 router.post(
-  '/register',
+  '/api/register',
   [
     check('email', 'Некорректный email').isEmail(),
     check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
@@ -14,6 +14,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const errors: Result<ValidationError> = validationResult(req);
+      console.log(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
@@ -43,12 +44,13 @@ router.post(
   },
 );
 router.post(
-  '/login',
+  '/api/login',
   [check('email', 'Введите корректный email').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
   async (req: Request, res: Response) => {
+    console.log(req.body);
     try {
       const errors: Result<ValidationError> = validationResult(req);
-
+      console.log(req.body);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
@@ -60,16 +62,16 @@ router.post(
         email: req.body.email,
         password: req.body.password,
       };
-      console.log(req.body);
 
       const user = await User.findOne({ email: postData.email });
 
       if (!user) {
+        console.log('kuku');
         return res.status(400).json({ message: 'Пользователь не найден' });
       }
 
       const isMatch = await bcrypt.compare(postData.password, user.password);
-      console.log(isMatch);
+      console.log(bcrypt.compare(postData.password, user.password));
 
       if (isMatch) {
         const token = createJWToken(user);

@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Home } from 'Pages/Home';
 import { Content } from 'Pages/Content';
 import { Player } from 'Pages/Player';
+import { Auth } from 'Pages/Auth';
 interface Route {
   link: string;
   title: string;
@@ -25,5 +26,10 @@ export const Pages: Array<Route> = [
     link: '/player',
     title: 'Player',
     component: Player,
+  },
+  {
+    link: '/auth',
+    title: 'Auth',
+    component: Auth,
   },
 ];
