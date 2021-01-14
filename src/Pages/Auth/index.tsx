@@ -1,53 +1,15 @@
-import React, { /*  useState, KeyboardEvent, */ useState } from 'react';
-// import style from './index.scss';
-// import { useMessage } from './hooks/message.hook';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './context/AuthContext';
 import { useHttp } from './hooks/http.hook';
 import { Button, Form /* FormControl */ } from 'react-bootstrap';
 
-// export function Auth() {
-//   // const message = useMessage();
-// const { loading, request /* , error, clearError  */ } = useHttp();
-// const [form /* , setForm */] = useState({
-//   email: '',
-//   password: '',
-// });
-
-//   // const changeHandler = (event: KeyboardEvent) => {
-//   //   setForm({ ...form, [event.target.name]: event.target.value });
-//   // };
-//   const registerHandler = async () => {
-//     try {
-//       /* const data = */ await request('/register', 'POST', { ...form });
-//       // message(data.message);
-//     } catch (e) {}
-//   };
-//   require('./index.scss');
-//   console.log(style.form);
-//   const ref = React.createRef();
-//   state = {
-//     value: '',
-//   };
-// type AuthForm = {
-//   email: string;
-//   password: string;
-// };
 export const Auth = () => {
-  // const auth = useContext(AuthContext);
-  // const message = useMessage();
+  const auth = useContext(AuthContext);
   const { loading, request /* , error, clearError  */ } = useHttp();
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
-
-  // useEffect(() => {
-  //   message(error);
-  //   clearError();
-  // }, [error, message, clearError]);
-
-  // useEffect(() => {
-  //   window.M.updateTextFields();
-  // }, []);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -57,25 +19,18 @@ export const Auth = () => {
     try {
       console.log(form);
 
-      await request('/api/register', 'POST', { ...form });
-      // message(data.message);
+      const data = await request('/api/register', 'POST', { ...form });
+      console.log(data);
     } catch (e) {}
   };
 
   const loginHandler = async () => {
     try {
       const data = await request('/api/login', 'POST', { ...form });
-      // auth.login(data.token, data.userId)
+      auth.login(data.token, data.userId);
       console.log(data);
     } catch (e) {}
   };
-
-  // const loginHandler = async () => {
-  //   try {
-  //     const data = await request('/api/auth/login', 'POST', { ...form });
-  //     auth.login(data.token, data.userId);
-  //   } catch (e) {}
-  // };lkk
 
   return (
     <Form>
@@ -107,24 +62,5 @@ export const Auth = () => {
     </Form>
   );
 };
-
-// export class Auth extends Component<unknown, AuthForm> {
-//   http = useHttp;
-//   state = {
-//     email: '',
-//     password: '',
-//   };
-
-//   registerHandler = async () => {
-//     try {
-//       /* const data = */ await request('http://localhost:3000/register', 'POST', this.state);
-//       // message(data.message);
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };
-
-//   render() {}
-// }
 
 export default Auth;
