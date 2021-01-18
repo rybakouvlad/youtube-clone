@@ -1,17 +1,25 @@
 import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Pages } from 'Pages/Routes/Routes';
-
+import { Form, Nav, Navbar } from 'react-bootstrap';
+import { LogInButton } from './LogInButton';
 export const AuthTrue = () => {
   return (
     <React.Fragment>
-      <div className="menu">
-        {Pages.map((page, index) => (
-          <Link to={page.link} key={index}>
-            {page.title}
-          </Link>
-        ))}
-      </div>
+      <Navbar bg="dark" variant="dark">
+        <Nav className="mr-auto">
+          {Pages.map((page, index) =>
+            page.title !== 'Login' ? (
+              <Nav.Link href={page.link} key={index}>
+                {page.title}
+              </Nav.Link>
+            ) : null,
+          )}
+        </Nav>
+        <Form inline>
+          <LogInButton />
+        </Form>
+      </Navbar>
 
       <Switch>
         {Pages.map((page, index) => (

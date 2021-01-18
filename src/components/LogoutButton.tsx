@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { AuthContext } from '../Pages/Auth/context/AuthContext';
 
@@ -12,9 +12,5 @@ export const LogoutButton = () => {
       //   console.log(data);
     } catch (e) {}
   };
-  return (
-    <Button variant="outline-primary" onClick={logoutHandler}>
-      logout
-    </Button>
-  );
+  return <Nav.Link onClick={logoutHandler}>logout</Nav.Link>;
 };

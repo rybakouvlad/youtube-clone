@@ -6,7 +6,7 @@ import createJWToken from '../MongoDB/utils/createJWToken';
 const router = Router();
 
 router.post(
-  '/api/register',
+  '/register',
   [
     check('email', 'Некорректный email').isEmail(),
     check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
@@ -44,7 +44,7 @@ router.post(
   },
 );
 router.post(
-  '/api/login',
+  '/login',
   [check('email', 'Введите корректный email').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
   async (req: Request, res: Response) => {
     console.log(req.body);
@@ -66,7 +66,6 @@ router.post(
       const user = await User.findOne({ email: postData.email });
 
       if (!user) {
-        console.log('kuku');
         return res.status(400).json({ message: 'Пользователь не найден' });
       }
 

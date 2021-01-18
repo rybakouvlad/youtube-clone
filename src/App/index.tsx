@@ -6,13 +6,10 @@ import { AuthFalse } from '../components/AuthFalse';
 export function App() {
   const { token, login, logout, userId, ready } = useAuth();
   const [isAuthenticated = false] = useState(!!token);
-  const auth: boolean = !!token;
-  // useEffect(()=>{
-  //   SetIsAuthenticated({ isAuthenticated = auth });
-  // })
+  const auth = !!token;
 
   console.log(isAuthenticated);
-  console.log(auth)
+  console.log(auth);
   // const routes = useRoutes(isAuthenticated);
   if (!ready) {
     console.log('loader');

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackConfig = require('./webpack.config');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env, argv) => {
   const watchMode = argv.liveReload || false;
@@ -55,6 +56,7 @@ module.exports = (env, argv) => {
         template: './src/Html/Browser.html',
       }),
       new WebpackNotifierPlugin({ alwaysNotify: false }),
+      new Dotenv(),
     ],
     entry: {
       main: './src/Client.tsx',
