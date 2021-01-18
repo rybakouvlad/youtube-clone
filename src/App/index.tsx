@@ -1,24 +1,31 @@
-import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
-import { Pages } from 'Pages/Routes';
-
+import React, { useState } from 'react';
+import { useAuth } from '../Pages/Auth/hooks/auth.hook';
+import { AuthContext } from '../Pages/Auth/context/AuthContext';
+import { AuthTrue } from '../components/AuthTrue';
+import { AuthFalse } from '../components/AuthFalse';
 export function App() {
+  const { token, login, logout, userId, ready } = useAuth();
+  const [isAuthenticated = false] = useState(!!token);
+  const auth = !!token;
+
+  console.log(isAuthenticated);
+  console.log(auth);
+  // const routes = useRoutes(isAuthenticated);
+  if (!ready) {
+    console.log('loader');
+  }
   require('../Styles/styles.scss');
   return (
-    <React.Fragment>
-      <div className="menu">
-        {Pages.map((page, index) => (
-          <Link to={page.link} key={index}>
-            {page.title}
-          </Link>
-        ))}
-      </div>
-
-      <Switch>
-        {Pages.map((page, index) => (
-          <Route exact path={page.link} component={page.component} key={index} />
-        ))}
-      </Switch>
-    </React.Fragment>
+    <AuthContext.Provider
+      value={{
+        token,
+        login,
+        logout,
+        userId,
+        isAuthenticated,
+      }}
+    >
+      {auth ? <AuthFalse /> : <AuthTrue />}
+    </AuthContext.Provider>
   );
 }
