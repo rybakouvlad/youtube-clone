@@ -3,27 +3,31 @@ import { check, validationResult, Result, ValidationError } from 'express-valida
 import bcrypt from 'bcryptjs';
 import User from '../MongoDB/models/Users';
 import createJWToken from '../MongoDB/utils/createJWToken';
+import FileService from '../services/fileService';
+import File from '../MongoDB/models/File';
 const router = Router();
+const fileService = new FileService();
 
 router.post(
   '/register',
   [
     check('email', 'Некорректный email').isEmail(),
     check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
+    check('login', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
   ],
   async (req: Request, res: Response) => {
     try {
       const errors: Result<ValidationError> = validationResult(req);
-      console.log(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
           message: 'Некорректный данные при регистрации',
         });
       }
-      const postData: { email: string; password: string } = {
+      const postData: { email: string; password: string; login: string } = {
         email: req.body.email,
         password: req.body.password,
+        login: req.body.login,
       };
 
       const candidate = await User.findOne({ email: postData.email });
@@ -33,10 +37,10 @@ router.post(
       }
 
       const hashedPassword = await bcrypt.hash(postData.password, 12);
-      const user = new User({ email: postData.email, password: hashedPassword });
+      const user = new User({ email: postData.email, password: hashedPassword, login: postData.login });
 
       await user.save();
-
+      await fileService.createDir(new File({ user: user._id, fileName: '' }));
       res.status(201).json({ message: 'Пользователь создан' });
     } catch (e) {
       res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });

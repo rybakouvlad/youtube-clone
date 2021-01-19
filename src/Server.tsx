@@ -7,6 +7,8 @@ import { App } from 'App';
 import Html from './Html/Server';
 import bodyParser from 'body-parser';
 import auth from './middleware/auth.middleware';
+import fileUpload from 'express-fileupload';
+import fileRouters from './routes/file.routes';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mediaServer = require('./broadcast/media_server');
 
@@ -15,14 +17,20 @@ import MongoRouter from './routes/mongo.routers';
 
 const server = express();
 const jsFiles: Array<string> = [];
+const fileRouter = new fileRouters();
 
 fs.readdirSync('./dist/assets').forEach((file) => {
   if (file.split('.').pop() === 'js') jsFiles.push(`/assets/${file}`);
 });
+server.use(express.json());
+// server.use('/api/files', fileRouter.uploadFile);
+server.use(fileUpload({}));
+server.post('/api/files', auth, fileRouter.uploadFile);
 
 server.use('/assets', express.static('./dist/assets'));
 server.use(bodyParser.json());
 server.use('/api', MongoRouter);
+
 server.get('/', auth, async (req, res) => {
   try {
     console.log('midleware');
