@@ -3,11 +3,9 @@ import { Schema, Document } from 'mongoose';
 import validator from 'validator';
 
 export interface IUser extends Document {
-  id: string;
   email: string;
-  firstName: string;
-  lastName: string;
   password: string;
+  login: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -18,14 +16,8 @@ const UserSchema: Schema = new Schema(
       validate: [validator.isEmail, 'Invalid email'],
       unique: true,
     },
-    // avatar: String,
-    firstName: String,
-    lastName: String,
     password: String,
-    // password: String,
-    // confimed: Boolean,
-    // confirm_hash: String,
-    // last_seen: Date,
+    login: String,
   },
   {
     timestamps: true,
