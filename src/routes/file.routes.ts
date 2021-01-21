@@ -48,7 +48,7 @@ export default class fileRouters {
       }
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       const sampleFile = req.files.file as UploadedFile;
-      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id + '/' + sampleFile.name;
+      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id /* + '/' */ + sampleFile.name;
       console.log(req.files.body);
 
       // Use the mv() method to place the file somewhere on your server
