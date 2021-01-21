@@ -18,7 +18,7 @@
     "build": "webpack --config webpack.client.js --mode production",
     "dev": "webpack --config webpack.client.js --mode development",
     "lint": "eslint src/ --ext .tsx --quiet ",
-    "lint-and-fix": "eslint src/ --ext .tsx --fix",
+    "lint-and-fix": "eslint src/**/*.js src/**/*.tsx --fix",
     "start": "webpack --config webpack.server.js --mode production && node ./server/main.js"
   },
   "keywords": [],
