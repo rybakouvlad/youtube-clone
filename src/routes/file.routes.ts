@@ -49,14 +49,22 @@ export default class fileRouters {
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       const sampleFile = req.files.file as UploadedFile;
       const uploadPath = `${process.env.USER_FILE_PATH}` + user._id /* + '/' */ + sampleFile.name;
-      console.log(req.files.body);
+      console.log(req.files.file);
 
       // Use the mv() method to place the file somewhere on your server
-      sampleFile.mv(uploadPath, function (err) {
+      sampleFile.mv(uploadPath, async function (err) {
         if (err) {
           return res.status(500).send(err);
         }
 
+        const dbFile = new File({
+          name: sampleFile.name,
+          size: sampleFile.size,
+          path: sampleFile.tempFilePath,
+          user: req.user,
+        });
+
+        await dbFile.save();
         res.send('File uploaded!');
       });
     } catch (error) {}

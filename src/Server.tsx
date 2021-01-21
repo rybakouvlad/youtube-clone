@@ -9,11 +9,11 @@ import bodyParser from 'body-parser';
 import auth from './middleware/auth.middleware';
 import fileUpload from 'express-fileupload';
 import fileRouters from './routes/file.routes';
+import routers from './routes/export.routes';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mediaServer = require('./broadcast/media_server');
 
 import './MongoDB/mongoDB';
-import MongoRouter from './routes/mongo.routers';
 
 const server = express();
 const jsFiles: Array<string> = [];
@@ -29,17 +29,9 @@ server.post('/api/files', auth, fileRouter.uploadFile);
 
 server.use('/assets', express.static('./dist/assets'));
 server.use(bodyParser.json());
-server.use('/api', MongoRouter);
+// server.use('/api', MongoRouter);
+server.use('/api', routers);
 
-server.get('/', auth, async (req, res) => {
-  try {
-    console.log('midleware');
-
-    res.json(200);
-  } catch (e) {
-    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
-  }
-});
 server.get('*', async (req, res) => {
   ReactDOMServer.renderToNodeStream(
     <Html scripts={jsFiles}>

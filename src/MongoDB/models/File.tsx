@@ -11,7 +11,7 @@ export interface IFile extends Document {
 }
 
 const File = new Schema({
-  filename: { type: String, required: true },
+  name: { type: String, required: true },
   //   accessLink: { type: String },
   size: { type: Number, default: 0 },
   path: { type: String, default: '' },
