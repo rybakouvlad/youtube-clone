@@ -46,13 +46,13 @@ const router = Router();
 router.get('/pullComments', async (req: Request, res: Response) => {
   try {
     const comments = await Comments.find({ user: req.user });
-    console.log(req.user)
+    console.log(req.user);
     return res.json(comments);
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: 'Can not get files' });
   }
-})
+});
 router.post('/create', [check('text', 'Введите комментарий').exists()], async (req: Request, res: Response) => {
   console.log(req.body);
   console.log(req.user);
