@@ -19,17 +19,18 @@ export function AddComments() {
 
   const getAllComments = useCallback(async () => {
     try {
-      console.log('^^^^');
-
       const data = await request('/api/comment/pullComments', 'GET', null, { Authorization: `Bearer ${auth.token}` });
-      console.log('****');
-      console.log(data);
       setAllComments(data);
-    } catch (e) {}
+      return true;
+    } catch (e) {
+      return false;
+    }
   }, [auth, request]);
+
   useEffect(() => {
-    getAllComments();
-    return () => {};
+    try {
+      getAllComments();
+    } catch (error) {}
   }, [getAllComments]);
   const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', user: '1' }]);
 
@@ -57,15 +58,17 @@ export function AddComments() {
   return (
     <div>
       {!loading &&
-        allComments.map((com: IComment) => {
-          <Card>
-            <Card.Header>{com.user}</Card.Header>
-            <Card.Body>
-              <blockquote className="blockquote mb-0">
-                <p> {com.text} </p>
-              </blockquote>
-            </Card.Body>
-          </Card>;
+        allComments.map((com: IComment, index) => {
+          return (
+            <Card key={index}>
+              <Card.Header>{com.user}</Card.Header>
+              <Card.Body>
+                <blockquote className="blockquote mb-0">
+                  <p> {com.text} </p>
+                </blockquote>
+              </Card.Body>
+            </Card>
+          );
         })}
       <InputGroup className="mb-3">
         <FormControl
