@@ -1,10 +1,17 @@
 import React from 'react';
-import style from './index.scss';
-
+import { Link, Route, Switch } from 'react-router-dom';
+import { VideoPage } from 'Pages/VideoPage';
 export function Home() {
   return (
-    <section className={style.home}>
-      <h1>Home page</h1>
-    </section>
+    <>
+      <Link to="/video">
+        <h2>VIDEO</h2>
+      </Link>
+      <Switch>
+        <Route path="/video">
+          <VideoPage />
+        </Route>
+      </Switch>
+    </>
   );
 }

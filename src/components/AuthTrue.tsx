@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Pages } from 'Pages/Routes/Routes';
 import { Form, Nav, Navbar } from 'react-bootstrap';
 import { LogInButton } from './LogInButton';
-export const AuthTrue = () => {
+import { Content } from '../Pages/Content';
+import { Home } from '../Pages/Home';
+import { Profile } from 'Pages/Profile';
+import Auth from 'Pages/Auth';
+
+export const AuthTrue: FC = () => {
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
@@ -22,9 +27,18 @@ export const AuthTrue = () => {
       </Navbar>
 
       <Switch>
-        {Pages.map((page, index) => (
-          <Route exact path={page.link} component={page.component} key={index} />
-        ))}
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/content">
+          <Content />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/auth">
+          <Auth />
+        </Route>
       </Switch>
     </React.Fragment>
   );
