@@ -8,11 +8,8 @@ export function App() {
   const [isAuthenticated = false] = useState(!!token);
   const auth = !!token;
 
-  console.log(isAuthenticated);
-  console.log(auth);
-  // const routes = useRoutes(isAuthenticated);
   if (!ready) {
-    console.log('loader');
+    return <h2>Loding</h2>;
   }
   require('../Styles/styles.scss');
   return (

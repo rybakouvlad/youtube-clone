@@ -6,6 +6,7 @@ import { LogInButton } from './LogInButton';
 import { Content } from '../Pages/Content';
 import { Home } from '../Pages/Home';
 import { Profile } from 'Pages/Profile';
+import { VideoPage } from 'Pages/VideoPage';
 import Auth from 'Pages/Auth';
 
 export const AuthTrue: FC = () => {
@@ -29,6 +30,9 @@ export const AuthTrue: FC = () => {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/video">
+          <VideoPage />
         </Route>
         <Route path="/content">
           <Content />

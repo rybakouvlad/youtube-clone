@@ -11,9 +11,12 @@ export function Profile() {
   const auth = useContext(AuthContext);
   const loadHendler = (event: Event<HTMLInputElement>) => {
     console.log(auth.token);
-
-    console.log(event);
-    sendFile(event, { Authorization: `Bearer ${auth.token}` });
+    if (event.target.files[0].type === 'video/mp4') {
+      console.log(event);
+      sendFile(event, { Authorization: `Bearer ${auth.token}` });
+    } else {
+      console.log('Тип не подходит');
+    }
   };
 
   return (

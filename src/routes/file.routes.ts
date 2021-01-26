@@ -28,12 +28,20 @@ export default class fileRouters {
     }
   }
 
+  async getAllFiles(req: Request, res: Response) {
+    try {
+      const files = await File.find({});
+      return res.json(files);
+    } catch (error) {
+      return res.status(500).json({ message: 'Can not get files' });
+    }
+  }
+
   async getFiles(req: Request, res: Response) {
     try {
       const files = await File.find({ user: req.user.id, parent: req.query.parent });
       return res.json(files);
     } catch (e) {
-      console.log(e);
       return res.status(500).json({ message: 'Can not get files' });
     }
   }
