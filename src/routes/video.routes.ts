@@ -3,6 +3,8 @@ import fs from 'fs';
 const router = Router();
 
 router.get('/video', (req: Request, res: Response) => {
+  console.log(req);
+
   const range = req.headers.range;
   if (!range) {
     res.status(400).send('Requires Range header');

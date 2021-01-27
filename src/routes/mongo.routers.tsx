@@ -51,10 +51,10 @@ router.post(
   '/login',
   [check('email', 'Введите корректный email').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
   async (req: Request, res: Response) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
       const errors: Result<ValidationError> = validationResult(req);
-      console.log(req.body);
+      // console.log(req.body);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
@@ -74,11 +74,11 @@ router.post(
       }
 
       const isMatch = await bcrypt.compare(postData.password, user.password);
-      console.log(bcrypt.compare(postData.password, user.password));
+      // console.log(bcrypt.compare(postData.password, user.password));
 
       if (isMatch) {
         const token = createJWToken(user);
-        console.log('kuku');
+        // console.log('kuku');
 
         res.json({
           status: 'success',

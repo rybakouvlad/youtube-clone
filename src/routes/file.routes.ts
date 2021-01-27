@@ -23,7 +23,7 @@ export default class fileRouters {
       await file.save();
       return res.json(file);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       return res.status(400).json(e);
     }
   }
@@ -47,7 +47,7 @@ export default class fileRouters {
   }
 
   async uploadFile(req: Request, res: Response) {
-    console.log(req);
+    // console.log(req);
 
     const user = await User.findOne({ _id: req.user._id });
     try {
@@ -56,9 +56,10 @@ export default class fileRouters {
       }
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       const sampleFile = req.files.file as UploadedFile;
-      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id /* + '/' */ + sampleFile.name;
-      console.log(req.files.file);
-
+      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id + '/' + sampleFile.name;
+      // console.log(req.files.file);
+      /* NEW FOLDER */
+      await fileService.checkDir(new File({ user: user._id, fileName: '' }));
       // Use the mv() method to place the file somewhere on your server
       sampleFile.mv(uploadPath, async function (err) {
         if (err) {
@@ -73,6 +74,7 @@ export default class fileRouters {
         });
 
         await dbFile.save();
+
         res.send('File uploaded!');
       });
     } catch (error) {}
