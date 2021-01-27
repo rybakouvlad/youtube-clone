@@ -13,7 +13,7 @@ export const VideoPage: FC = () => {
     <div>
       <h2>Video</h2>
       <h4>{query.get('name')}</h4>
-      <ReactPlayer controls={true} url="/api/play/video" />
+      <ReactPlayer controls={true} url="/api/play/play/asdfas" />
     </div>
   );
 };

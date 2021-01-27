@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express';
 import fs from 'fs';
+import ffmpeg from 'fluent-ffmpeg';
+
+// const comand = ffmpeg();
+
 const router = Router();
 
 router.get('/video', (req: Request, res: Response) => {
@@ -37,6 +41,26 @@ router.get('/video', (req: Request, res: Response) => {
 
   // Stream the video chunk to the client
   videoStream.pipe(res);
+});
+
+router.get('/play/:filename', () => {
+  console.log('kuku');
+  const videoPath = process.env.USER_FILE_PATH + 'bigbuck.mp4';
+  const outStream = fs.createWriteStream(videoPath);
+
+  // ar outStream = fs.createWriteStream('/path/to/output.mp4');
+
+  ffmpeg(videoPath)
+    .videoCodec('libx264')
+    .audioCodec('libmp3lame')
+    .size('320x240')
+    .on('error', function (err) {
+      console.log('An error occurred: ' + err.message);
+    })
+    .on('end', function () {
+      console.log('Processing finished !');
+    })
+    .pipe(outStream, { end: true });
 });
 
 export default router;
