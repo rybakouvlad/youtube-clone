@@ -7,6 +7,7 @@ interface IComment {
   id: string;
   text: string;
   user: string;
+  date: Date;
 }
 
 export function AddComments() {
@@ -32,7 +33,7 @@ export function AddComments() {
       getAllComments();
     } catch (error) {}
   }, [getAllComments]);
-  const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', user: '1' }]);
+  const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', user: '1', date: new Date()}]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -42,26 +43,29 @@ export function AddComments() {
     try {
       const data = await request('/api/comment/create', 'POST', { ...form }, { Authorization: `Bearer ${auth.token}` });
       setForm({ text: '' });
+      getAllComments();
       console.log(data);
     } catch (e) {}
   };
-  if (loading) {
-    return <h2>llllll</h2>;
-  }
-
-  // return (
-  //   <>
-  //     {!loading && <LinksList links={links} />}
-  //   </>
-  // )
-
+ 
+  const dateOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timezone: 'UTC',
+  };
   return (
     <div>
       {!loading &&
         allComments.map((com: IComment, index) => {
           return (
             <Card key={index}>
-              <Card.Header>{com.user}</Card.Header>
+              <Card.Header>
+                <span>{com.user}</span>
+                <span>{new Date(com.date).toLocaleString('ru', dateOptions)}</span>
+              </Card.Header>
               <Card.Body>
                 <blockquote className="blockquote mb-0">
                   <p> {com.text} </p>

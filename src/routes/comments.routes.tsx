@@ -65,7 +65,7 @@ router.post('/create', [check('text', 'Введите комментарий').e
         message: 'Комментарий некорректный',
       });
     }
-    const comment = new Comments({ text: req.body.text, user: req.user });
+    const comment = new Comments({ text: req.body.text, user: req.user, date: new Date() });
 
     await comment.save();
     res.status(201).json({ message: 'Комментарий создан' });
