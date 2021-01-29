@@ -7,9 +7,7 @@ export const LogoutButton = () => {
 
   const logoutHandler = async () => {
     try {
-      //   const data = await request('/api/login', 'POST', { ...form });
       auth.logout();
-      //   console.log(data);
     } catch (e) {}
   };
   return <Nav.Link onClick={logoutHandler}>logout</Nav.Link>;

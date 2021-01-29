@@ -28,7 +28,7 @@ module.exports = (env, argv) => {
         patterns: [
           {
             from: './src/files',
-            to: './files',
+            to: './assets/files',
           },
         ],
       }),

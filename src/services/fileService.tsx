@@ -17,4 +17,15 @@ export default class FileService {
       }
     });
   }
+  checkDir(file: IFile) {
+    const filePath = `${process.env.USER_FILE_PATH}${file.user}/${file.path}`;
+    try {
+      fs.statSync(filePath);
+      console.log('file or directory exists');
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        this.createDir(file);
+      }
+    }
+  }
 }

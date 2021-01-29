@@ -5,8 +5,6 @@ import { LogoutButton } from './LogoutButton';
 import { Form, Nav, Navbar } from 'react-bootstrap';
 
 export const AuthFalse = () => {
-  console.log('kuku');
-
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
