@@ -7,7 +7,7 @@ import { Content } from '../Pages/Content';
 import { Home } from '../Pages/Home';
 import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
-import Auth from 'Pages/Auth';
+import { Auth } from 'Pages/Auth';
 
 export const AuthTrue: FC = () => {
   return (

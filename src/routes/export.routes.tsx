@@ -8,4 +8,5 @@ const file = new fileRouter();
 router.use('/play', videoRouter);
 router.use('/', mongoRouter);
 router.get('/file/all', file.getAllFiles);
+router.post('/file/single', file.getFile);
 export default router;
