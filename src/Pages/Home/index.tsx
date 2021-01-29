@@ -41,7 +41,6 @@ export function Home() {
   if (loading) {
     return <h2>llllll</h2>;
   }
-  console.log(allVideo);
 
   return (
     <>
@@ -53,12 +52,6 @@ export function Home() {
             </li>
           );
         })}
-      <li>
-        <Link to="/video?name=netflix">video 1</Link>
-      </li>
-      <li>
-        <Link to="/video?name=zillow-group">video 2</Link>
-      </li>
       <Switch>
         <Route path="/video?:id">
           <VideoPage />

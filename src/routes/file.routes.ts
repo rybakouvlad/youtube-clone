@@ -37,9 +37,9 @@ export default class fileRouters {
     }
   }
 
-  async getFiles(req: Request, res: Response) {
+  async getFile(req: Request, res: Response) {
     try {
-      const files = await File.find({ user: req.user.id, parent: req.query.parent });
+      const files = await File.findOne({ _id: req.body.filename });
       return res.json(files);
     } catch (e) {
       return res.status(500).json({ message: 'Can not get files' });

@@ -3,7 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 import { Pages } from 'Pages/Routes/authFalse';
 import { LogoutButton } from './LogoutButton';
 import { Form, Nav, Navbar } from 'react-bootstrap';
-
+import { Content } from '../Pages/Content';
+import { Home } from '../Pages/Home';
+import { Profile } from 'Pages/Profile';
+import { VideoPage } from 'Pages/VideoPage';
+import { Auth } from 'Pages/Auth';
 export const AuthFalse = () => {
   return (
     <React.Fragment>
@@ -20,9 +24,21 @@ export const AuthFalse = () => {
         </Form>
       </Navbar>
       <Switch>
-        {Pages.map((page, index) => (
-          <Route exact path={page.link} component={page.component} key={index} />
-        ))}
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/video">
+          <VideoPage />
+        </Route>
+        <Route path="/content">
+          <Content />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/auth">
+          <Auth />
+        </Route>
       </Switch>
     </React.Fragment>
   );
