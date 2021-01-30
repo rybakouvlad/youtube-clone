@@ -11,8 +11,9 @@ interface authToke {
   Authorization: string;
 }
 
-export function sendFile(event: Event<HTMLInputElement>, header: authToke) {
+export function sendFile(event: Event<HTMLInputElement>, header: authToke, fileTitle: string) {
   console.log(event.target.files[0]);
+  console.log(fileTitle);
 
   superagent
     .post('/api/files')
@@ -21,6 +22,7 @@ export function sendFile(event: Event<HTMLInputElement>, header: authToke) {
       console.log(event);
     }) // sends a JSON post body
     .set(header)
+    .set('fileTitle', fileTitle)
     .set('accept', 'json')
     .end(function (err: ResponseError, res: Response) {
       // Calling the end function will send the request

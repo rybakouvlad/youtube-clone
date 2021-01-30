@@ -47,7 +47,7 @@ export default class fileRouters {
   }
 
   async uploadFile(req: Request, res: Response) {
-    // console.log(req);
+    console.log('%%%% ', req);
 
     const user = await User.findOne({ _id: req.user._id });
     try {
@@ -71,6 +71,7 @@ export default class fileRouters {
           size: sampleFile.size,
           path: sampleFile.tempFilePath,
           user: req.user,
+          title: req.fileTitle  //error!!!!
         });
 
         await dbFile.save();
