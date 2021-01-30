@@ -6,6 +6,7 @@ import { AuthContext } from '../Pages/Auth/context/AuthContext';
 interface IComment {
   id: string;
   text: string;
+  video: string;
   user: string;
   date: Date;
 }
@@ -33,9 +34,7 @@ export function AddComments() {
       getAllComments();
     } catch (error) {}
   }, [getAllComments]);
-  const [allComments, setAllComments] = useState<Array<IComment>>([
-    { id: '1', text: 'test', user: '1', date: new Date() },
-  ]);
+  const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', video: '1', user: '1', date: new Date()}]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
