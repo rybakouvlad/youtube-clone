@@ -18,7 +18,6 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).json({ message: 'Auth error' });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET) as DecodedData;
-    console.log(decoded);
     req.user = decoded.data._doc;
 
     next();
