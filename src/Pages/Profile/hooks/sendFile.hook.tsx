@@ -1,8 +1,5 @@
 import superagent, { ResponseError, Response } from 'superagent';
 
-// interface HTMLInputEvent extends Event {
-//   target: HTMLInputElement & EventTarget;
-// }
 interface Event<T = EventTarget> {
   target: T;
   // ...

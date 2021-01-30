@@ -43,6 +43,7 @@ module.exports = (env, argv) => {
       historyApiFallback: true,
       proxy: {
         '/api': 'http://localhost:3000',
+        '/api/streams': 'http://localhost:8080',
       },
     },
     resolve: config.resolve,
