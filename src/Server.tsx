@@ -12,6 +12,7 @@ import fileRouters from './routes/file.routes';
 import commentRoutes from './routes/comments.routes';
 import routers from './routes/export.routes';
 import mediaServer from '../src/broadcast/media_server.js';
+import liveThumbnail from '../src/broadcast/thumbnail/thumbnail.js';
 import './MongoDB/mongoDB';
 
 const server = express();
@@ -44,3 +45,4 @@ server.get('*', async (req, res) => {
 server.listen(process.env.SERVER_PORT, () => console.log(`Listening on port ${process.env.SERVER_PORT}`));
 
 mediaServer.run();
+liveThumbnail.start();
