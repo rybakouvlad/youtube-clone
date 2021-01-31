@@ -4,30 +4,10 @@ import User from '../MongoDB/models/Users';
 import File from '../MongoDB/models/File';
 import { UploadedFile } from 'express-fileupload';
 import { Request, Response } from 'express';
+import { generateVideoThumbnail } from '../services/thumbnail';
+import shortid from 'shortid';
 const fileService = new fileServ();
 export default class fileRouters {
-  // async createDir(req: Request, res: Response) {
-  //   try {
-  //     const { name, type, parent } = req.body;
-  //     const file = new File({ name, type, parent, user: req.user.id });
-  //     const parentFile = await File.findOne({ _id: parent });
-  //     if (!parentFile) {
-  //       file.path = name;
-  //       await fileService.createDir(file);
-  //     } else {
-  //       file.path = `${parentFile.path}\\${file.filename}`;
-  //       await fileService.createDir(file);
-  //       // parentFile.childs.push(file._id);
-  //       // await parentFile.save();
-  //     }
-  //     await file.save();
-  //     return res.json(file);
-  //   } catch (e) {
-  //     // console.log(e);
-  //     return res.status(400).json(e);
-  //   }
-  // }
-
   async getAllFiles(req: Request, res: Response) {
     try {
       const files = await File.find({});
@@ -56,7 +36,8 @@ export default class fileRouters {
       }
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       const sampleFile = req.files.file as UploadedFile;
-      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id + '/' + sampleFile.name;
+      const fileName = shortid.generate() + '.mp4';
+      const uploadPath = `${process.env.USER_FILE_PATH}` + user._id + '/' + fileName;
       // console.log(req.files.file);
       /* NEW FOLDER */
       await fileService.checkDir(new File({ user: user._id, fileName: '' }));
@@ -67,14 +48,14 @@ export default class fileRouters {
         }
 
         const dbFile = new File({
-          name: sampleFile.name,
+          name: fileName,
           size: sampleFile.size,
           path: sampleFile.tempFilePath,
           user: req.user,
         });
 
         await dbFile.save();
-
+        generateVideoThumbnail(req.user._id, dbFile.name);
         res.send('File uploaded!');
       });
     } catch (error) {}

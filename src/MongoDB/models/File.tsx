@@ -2,7 +2,7 @@ import { model, Schema, Document } from 'mongoose';
 import { IUser } from './Users';
 
 export interface IFile extends Document {
-  filename: string;
+  name: string;
   size: number;
   //   date: string;
   path: string;

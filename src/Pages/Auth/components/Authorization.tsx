@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 import { Button, Form /* FormControl */ } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 export const Authorization = () => {
   const auth = useContext(AuthContext);
+  const history = useHistory();
   const { loading, request /* , error, clearError  */ } = useHttp();
   const [form, setForm] = useState({
     email: '',
@@ -20,6 +22,9 @@ export const Authorization = () => {
       const data = await request('/api/login', 'POST', { ...form });
       auth.login(data.token, data.userId);
       console.log(data);
+      if (data.status) {
+        history.push('/');
+      }
     } catch (e) {}
   };
 
