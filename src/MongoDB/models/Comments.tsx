@@ -1,10 +1,10 @@
 import { model, Schema, Document } from 'mongoose';
 import { IUser } from './Users';
-import {IFile} from "./File";
+import { IFile } from './File';
 
 export interface IComment extends Document {
   text: string;
-  video: IFile;
+  video: IFile | string;
   user: IUser | string;
   date: Date;
 }

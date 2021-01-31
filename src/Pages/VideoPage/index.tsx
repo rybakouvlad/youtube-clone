@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FC } from 'react';
 import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router-dom';
-import { AddComments } from "../../components/CommentCreate";
+import { AddComments } from '../../components/CommentCreate';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -20,16 +20,27 @@ interface IURL {
   date: Date;
   user: string;
   name: string;
+  title: string;
 }
 
 export const VideoPage: FC = () => {
   const query = useQuery();
   const { request, loading } = useHttp();
-  const [video, setVideo] = useState<IURL>({ _id: '', date: new Date(), user: '', name: '' });
+  const [login, setLogin] = useState('');
+  const [video, setVideo] = useState<IURL>({
+    _id: '',
+    date: new Date('2021-01-31T04:19:37.967Z'),
+    user: '60165c08c4e5086aec94f004',
+    name: '',
+    title: '',
+  });
   const getAllVideo = useCallback(async () => {
     try {
       const data = await request('/api/file/single', 'POST', { filename: query.get('name') });
       setVideo(data);
+      const userLogin = await request('/api/getUserLogin', 'POST', { userId: data.user });
+      setLogin(userLogin);
+      console.log('', userLogin);
       return true;
     } catch (e) {
       return false;
@@ -45,14 +56,25 @@ export const VideoPage: FC = () => {
   if (loading) {
     return <h2>llllll</h2>;
   }
-  console.log(video.user);
+  console.log('!!!!!!!!!!', video.user);
+  const dateOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timezone: 'UTC',
+  };
 
   return (
     <div>
       <h2>Video</h2>
       <h4>{query.get('name')}</h4>
       <ReactPlayer controls={true} url={`/api/play/video/${video.user}/${video.name}`} />
-      <AddComments />
+      <p>{login}</p>
+      <p>{video.title}</p>
+      <p>{new Date(video.date).toLocaleString('ru', dateOptions)}</p>
+      <AddComments videoId={query.get('name')} />
     </div>
   );
 };

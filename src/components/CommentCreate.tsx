@@ -11,7 +11,9 @@ interface IComment {
   date: Date;
 }
 
-export function AddComments() {
+export function AddComments(videoId: any) {
+  console.log('6666', videoId);
+  let userLogin: string;
   const { request, loading } = useHttp();
   const auth = useContext(AuthContext);
 
@@ -21,7 +23,7 @@ export function AddComments() {
 
   const getAllComments = useCallback(async () => {
     try {
-      const data = await request('/api/comment/pullComments', 'GET', null, { Authorization: `Bearer ${auth.token}` });
+      const data = await request('/api/comment/pullComments', 'POST', { ...videoId });
       setAllComments(data);
       return true;
     } catch (e) {
@@ -34,7 +36,9 @@ export function AddComments() {
       getAllComments();
     } catch (error) {}
   }, [getAllComments]);
-  const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', video: '1', user: '1', date: new Date()}]);
+  const [allComments, setAllComments] = useState<Array<IComment>>([
+    { id: '1', text: 'test', video: '1', user: '1', date: new Date() },
+  ]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -42,7 +46,12 @@ export function AddComments() {
 
   const addCommentHandler = async () => {
     try {
-      const data = await request('/api/comment/create', 'POST', { ...form }, { Authorization: `Bearer ${auth.token}` });
+      const data = await request(
+        '/api/comment/create',
+        'POST',
+        { ...form, ...videoId },
+        { Authorization: `Bearer ${auth.token}` },
+      );
       setForm({ text: '' });
       getAllComments();
       console.log(data);
@@ -60,36 +69,39 @@ export function AddComments() {
   return (
     <div>
       {!loading &&
-        allComments.map((com: IComment, index) => {
+        allComments.map((comment: IComment, index) => {
           return (
             <Card key={index}>
               <Card.Header>
-                <span>{com.user}</span>
-                <span>{new Date(com.date).toLocaleString('ru', dateOptions)}</span>
+                { userLogin = await request('/api/getUserLogin', 'POST', { userId: comment.user }) };
+                <span>{comment.user}</span>
+                <span>{new Date(comment.date).toLocaleString('ru', dateOptions)}</span>
               </Card.Header>
               <Card.Body>
                 <blockquote className="blockquote mb-0">
-                  <p> {com.text} </p>
+                  <p> {comment.text} </p>
                 </blockquote>
               </Card.Body>
             </Card>
           );
         })}
-      <InputGroup className="mb-3">
-        <FormControl
-          onChange={changeHandler}
-          value={form.text}
-          name="text"
-          placeholder="Your comment"
-          aria-label="Your comment"
-          aria-describedby="basic-addon2"
-        />
-        <InputGroup.Append>
-          <Button variant="outline-secondary" type="submit" onClick={addCommentHandler}>
-            add
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
+      {auth.token ? (
+        <InputGroup className="mb-3">
+          <FormControl
+            onChange={changeHandler}
+            value={form.text}
+            name="text"
+            placeholder="Your comment"
+            aria-label="Your comment"
+            aria-describedby="basic-addon2"
+          />
+          <InputGroup.Append>
+            <Button variant="outline-secondary" type="submit" onClick={addCommentHandler}>
+              add
+            </Button>
+          </InputGroup.Append>
+        </InputGroup>
+      ) : null}
     </div>
   );
 }
