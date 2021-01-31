@@ -5,6 +5,7 @@ import User from '../MongoDB/models/Users';
 import createJWToken from '../MongoDB/utils/createJWToken';
 import FileService from '../services/fileService';
 import File from '../MongoDB/models/File';
+import shortid from 'shortid';
 const router = Router();
 const fileService = new FileService();
 
@@ -37,8 +38,12 @@ router.post(
       }
 
       const hashedPassword = await bcrypt.hash(postData.password, 12);
-      const user = new User({ email: postData.email, password: hashedPassword, login: postData.login });
-
+      const user = new User({
+        email: postData.email,
+        password: hashedPassword,
+        login: postData.login,
+        stream_key: shortid.generate(),
+      });
       await user.save();
       await fileService.createDir(new File({ user: user._id, fileName: '' }));
       res.status(201).json({ message: 'Пользователь создан' });

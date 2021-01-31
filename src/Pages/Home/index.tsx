@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { VideoPage } from 'Pages/VideoPage';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
+import { Row, Col, Image, Container } from 'react-bootstrap';
 interface IVideo {
   _id: string;
   path: string;
@@ -39,19 +40,26 @@ export function Home() {
   }, [getAllVideo]);
 
   if (loading) {
-    return <h2>llllll</h2>;
+    return <h2>Loading</h2>;
   }
 
   return (
     <>
-      {!loading &&
-        allVideo.map((video, index) => {
-          return (
-            <li key={index}>
-              <Link to={`/video?name=${video._id}`}>{video.name}</Link>
-            </li>
-          );
-        })}
+      {!loading && (
+        <Container>
+          <Row xs={1} md={3}>
+            {allVideo.map((video, index) => {
+              return (
+                <Col xs={6} md={4} key={index}>
+                  <Link to={`/video?name=${video._id}`}>
+                    <Image width="300px" src={`http://localhost:3000/api/image/${video.name}.png`} rounded />
+                  </Link>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
+      )}
       <Switch>
         <Route path="/video?:id">
           <VideoPage />

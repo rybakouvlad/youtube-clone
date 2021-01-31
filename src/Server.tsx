@@ -11,9 +11,8 @@ import fileUpload from 'express-fileupload';
 import fileRouters from './routes/file.routes';
 import commentRoutes from './routes/comments.routes';
 import routers from './routes/export.routes';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const mediaServer = require('./broadcast/media_server');
-
+import mediaServer from '../src/broadcast/media_server.js';
+import liveThumbnail from '../src/broadcast/thumbnail/thumbnail.js';
 import './MongoDB/mongoDB';
 
 const server = express();
@@ -24,7 +23,7 @@ fs.readdirSync('./dist/assets').forEach((file) => {
   if (file.split('.').pop() === 'js') jsFiles.push(`/assets/${file}`);
 });
 server.use(express.json());
-// server.use('/api/files', fileRouter.uploadFile);
+
 server.use(fileUpload({}));
 server.post('/api/files', auth, fileRouter.uploadFile);
 
@@ -46,3 +45,4 @@ server.get('*', async (req, res) => {
 server.listen(process.env.SERVER_PORT, () => console.log(`Listening on port ${process.env.SERVER_PORT}`));
 
 mediaServer.run();
+liveThumbnail.start();

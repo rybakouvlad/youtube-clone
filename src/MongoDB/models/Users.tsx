@@ -6,6 +6,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   login: string;
+  stream_key: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -18,12 +19,13 @@ const UserSchema: Schema = new Schema(
     },
     password: String,
     login: String,
+    stream_key: String,
   },
   {
     timestamps: true,
   },
 );
 
-const User = mongoose.model<IUser>('Urer', UserSchema);
+const User = mongoose.model<IUser>('Users', UserSchema);
 
 export default User;

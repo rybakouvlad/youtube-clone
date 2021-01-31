@@ -8,6 +8,7 @@ import { Home } from '../Pages/Home';
 import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
 import { Auth } from 'Pages/Auth';
+import { Player } from 'Pages/Player';
 export const AuthFalse = () => {
   return (
     <React.Fragment>
@@ -32,6 +33,9 @@ export const AuthFalse = () => {
         </Route>
         <Route path="/content">
           <Content />
+        </Route>
+        <Route path="/player">
+          <Player />
         </Route>
         <Route path="/profile">
           <Profile />
