@@ -8,6 +8,7 @@ export interface IFile extends Document {
   path: string;
   date: Date;
   user: IUser | string;
+  title?: string;
 }
 
 const File = new Schema({
@@ -17,6 +18,7 @@ const File = new Schema({
   path: { type: String, default: '' },
   date: { type: Date, default: Date.now() },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
+  title: { type: String, default: 'Some title' },
 });
 
 const FileModel = model<IFile>('File', File);

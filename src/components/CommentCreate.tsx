@@ -33,7 +33,9 @@ export function AddComments() {
       getAllComments();
     } catch (error) {}
   }, [getAllComments]);
-  const [allComments, setAllComments] = useState<Array<IComment>>([{ id: '1', text: 'test', user: '1', date: new Date()}]);
+  const [allComments, setAllComments] = useState<Array<IComment>>([
+    { id: '1', text: 'test', user: '1', date: new Date() },
+  ]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -47,7 +49,7 @@ export function AddComments() {
       console.log(data);
     } catch (e) {}
   };
- 
+
   const dateOptions = {
     hour: 'numeric',
     minute: 'numeric',
