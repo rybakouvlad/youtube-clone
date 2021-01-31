@@ -2,10 +2,14 @@ import { AuthContext } from 'Pages/Auth/context/AuthContext';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
-
+import { useLocation } from 'react-router-dom';
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 export function PlayerComponent() {
   const { request } = useHttp();
   const auth = useContext(AuthContext);
+  const query = useQuery();
   const [streamKey, setStreamKey] = useState<string>();
 
   const getKey = useCallback(async () => {
@@ -27,7 +31,7 @@ export function PlayerComponent() {
   return (
     <section className="player">
       <h2>{streamKey}</h2>
-      <ReactPlayer controls={true} url={`http://127.0.0.1:8080/live/${streamKey}/index.m3u8`} />
+      <ReactPlayer controls={true} url={`http://127.0.0.1:8080/live/${query.get('name')}/index.m3u8`} />
     </section>
   );
 }
