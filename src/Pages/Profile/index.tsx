@@ -19,7 +19,7 @@ export function Profile() {
     if (event.target.files[0].type === 'video/mp4') {
       console.log(event);
       setVideoFile({ videoFile, ...event });
-      console.log(videoFile)
+      console.log(videoFile);
       // sendFile(event, { Authorization: `Bearer ${auth.token}` });
     } else {
       console.log('Тип не подходит');

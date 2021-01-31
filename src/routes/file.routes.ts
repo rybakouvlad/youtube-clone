@@ -59,7 +59,7 @@ export default class fileRouters {
       const uploadPath = `${process.env.USER_FILE_PATH}` + user._id + '/' + sampleFile.name;
       // console.log(req.files.file);
       /* NEW FOLDER */
-      await fileService.checkDir(new File({ user: user._id, fileName: '' }));
+      fileService.checkDir(new File({ user: user._id, fileName: '' }));
       // Use the mv() method to place the file somewhere on your server
       sampleFile.mv(uploadPath, async function (err) {
         if (err) {
@@ -71,7 +71,7 @@ export default class fileRouters {
           size: sampleFile.size,
           path: sampleFile.tempFilePath,
           user: req.user,
-          title: req.fileTitle  //error!!!!
+          title: req.headers.filetitle, //Исправил!!!!
         });
 
         await dbFile.save();
