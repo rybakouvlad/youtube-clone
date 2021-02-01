@@ -26,6 +26,11 @@ const config = {
           dash: true,
           dashFlags: '[f=dash:window_size=3:extra_window_size=5]',
         },
+        {
+          app: 'live',
+          mp4: true,
+          mp4Flags: '[movflags=frag_keyframe+empty_moov]',
+        },
       ],
     },
   },
