@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import { VideoPage } from 'Pages/VideoPage';
+import { Link } from 'react-router-dom';
+// import { VideoPage } from 'Pages/VideoPage';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import { Row, Col, Image, Container } from 'react-bootstrap';
 interface IVideo {
@@ -63,11 +63,7 @@ export function Home() {
           </Row>
         </Container>
       )}
-      <Switch>
-        <Route path="/video?:id">
-          <VideoPage />
-        </Route>
-      </Switch>
+
     </>
   );
 }
