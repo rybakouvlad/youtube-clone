@@ -101,4 +101,15 @@ router.post(
   },
 );
 
+router.post('/getUserLogin', async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ _id: req.body.userId });
+    console.log('$$$$$$$', user);
+    return res.json(user.login);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Can not get user' });
+  }
+});
+
 export default router;

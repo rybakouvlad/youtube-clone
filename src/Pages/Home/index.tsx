@@ -10,6 +10,7 @@ interface IVideo {
   name: string;
   size: number;
   user: string;
+  title: string;
 }
 // {
 //   "size": 1107701,
@@ -53,6 +54,8 @@ export function Home() {
                 <Col xs={6} md={4} key={index}>
                   <Link to={`/video?name=${video._id}`}>
                     <Image width="300px" src={`http://localhost:3000/api/image/${video.name}.png`} rounded />
+
+                    <p>{video.title}</p>
                   </Link>
                 </Col>
               );

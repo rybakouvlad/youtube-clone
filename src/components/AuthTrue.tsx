@@ -7,6 +7,7 @@ import { Content } from '../Pages/Content';
 import { Home } from '../Pages/Home';
 import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
+import { Player } from 'Pages/Player';
 import { Auth } from 'Pages/Auth';
 
 export const AuthTrue: FC = () => {
@@ -42,6 +43,9 @@ export const AuthTrue: FC = () => {
         </Route>
         <Route path="/auth">
           <Auth />
+        </Route>
+        <Route path="/player">
+          <Player />
         </Route>
       </Switch>
     </React.Fragment>

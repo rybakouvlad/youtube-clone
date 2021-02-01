@@ -29,7 +29,7 @@ server.post('/api/files', auth, fileRouter.uploadFile);
 
 server.use('/assets', express.static('./dist/assets'));
 server.use(bodyParser.json());
-server.use('/api/comment', auth, commentRoutes);
+server.use('/api/comment', commentRoutes);
 server.use('/api', routers);
 
 server.get('*', async (req, res) => {
