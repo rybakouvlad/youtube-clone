@@ -37,8 +37,9 @@ export const VideoPage: FC = () => {
   const getAllVideo = useCallback(async () => {
     try {
       const data = await request('/api/file/single', 'POST', { filename: query.get('name') });
-      setVideo(data);
+
       const userLogin = await request('/api/getUserLogin', 'POST', { userId: data.user });
+      setVideo(data);
       setLogin(userLogin);
       console.log('', userLogin);
       return true;

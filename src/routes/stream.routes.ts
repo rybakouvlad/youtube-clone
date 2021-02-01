@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
-import User from '../MongoDB/models/Users';
+import StreamModel from '../MongoDB/models/Stream';
 
 const router = Router();
 
 router.get('/stream-key', async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ _id: req.user._id });
-    return res.json(user.stream_key);
+    const user = await StreamModel.findOne({ user: req.user._id });
+    return res.json(user.key);
   } catch (error) {
     return res.status(500).json({ message: 'Can not get sream key' });
   }
