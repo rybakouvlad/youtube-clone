@@ -29,7 +29,13 @@ router.post('/create', auth, [check('text', 'Введите комментари
         message: 'Комментарий некорректный',
       });
     }
-    const comment = new Comments({ text: req.body.text, video: req.body.videoId, user: req.user, date: new Date() });
+    const comment = new Comments({
+      text: req.body.text,
+      video: req.body.videoId,
+      user: req.user,
+      login: req.user.login,
+      date: new Date(),
+    });
 
     await comment.save();
     res.status(201).json({ message: 'Комментарий создан' });
