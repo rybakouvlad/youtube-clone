@@ -27,27 +27,29 @@ export const AuthTrue: FC = () => {
           <LogInButton />
         </Form>
       </Navbar>
-
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/video">
-          <VideoPage />
-        </Route>
-        <Route path="/content">
-          <Content />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-        <Route path="/player">
-          <Player />
-        </Route>
-      </Switch>
+      <section className="main">
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/video">
+            <VideoPage />
+          </Route>
+          <Route path="/content">
+            <Content />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+          <Route path="/player">
+            <Player />
+          </Route>
+        </Switch>
+        Ï
+      </section>
     </React.Fragment>
   );
 };

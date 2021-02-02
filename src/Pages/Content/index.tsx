@@ -27,10 +27,5 @@ export const Content: FC = () => {
 
   console.log(isStreams);
 
-  return (
-    <>
-      <h2>content</h2>
-      {isStreams ? <LiveVideoList /> : <h2>No streams</h2>}
-    </>
-  );
+  return <>{isStreams ? <LiveVideoList /> : <h2>No streams</h2>}</>;
 };

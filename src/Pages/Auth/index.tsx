@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import Authorization from './components/Authorization';
 import Register from './components/Register';
 
-export const Auth = () => {
+export const Auth: FC = () => {
   const [textHelp, setTextHelp] = useState({
     help: 'You are not ',
     status: 'registred?',
@@ -11,7 +11,11 @@ export const Auth = () => {
   });
 
   const changeHandler = () => {
-    if (textHelp.isStatus) {
+    changeStatus(textHelp.isStatus);
+  };
+
+  const changeStatus = (status: boolean): void => {
+    if (status) {
       setTextHelp({
         help: 'You are not ',
         status: 'registred?',
@@ -28,7 +32,7 @@ export const Auth = () => {
 
   return (
     <>
-      <div>{textHelp.isStatus ? <Register /> : <Authorization />}</div>
+      <div>{textHelp.isStatus ? <Register changeStatus={changeStatus} /> : <Authorization />}</div>
       <h6>
         {textHelp.help}{' '}
         <Badge variant="secondary" onClick={changeHandler}>

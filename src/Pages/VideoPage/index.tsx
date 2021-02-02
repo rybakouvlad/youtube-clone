@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FC } from 'react';
 import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router-dom';
+import { LoaderSpiner } from '../../components/LoadingComponent';
 import { AddComments } from '../../components/CommentCreate';
 
 function useQuery() {
@@ -34,6 +35,7 @@ export const VideoPage: FC = () => {
     name: '',
     title: '',
   });
+  const [isReady, setIsReady] = useState(false);
   const getAllVideo = useCallback(async () => {
     try {
       const data = await request('/api/file/single', 'POST', { filename: query.get('name') });
@@ -41,7 +43,7 @@ export const VideoPage: FC = () => {
       const userLogin = await request('/api/getUserLogin', 'POST', { userId: data.user });
       setVideo(data);
       setLogin(userLogin);
-      console.log('', userLogin);
+      setIsReady(true);
       return true;
     } catch (e) {
       return false;
@@ -55,9 +57,8 @@ export const VideoPage: FC = () => {
   }, [getAllVideo]);
 
   if (loading) {
-    return <h2>llllll</h2>;
+    return <LoaderSpiner />;
   }
-  console.log('!!!!!!!!!!', video.user);
   const dateOptions = {
     hour: 'numeric',
     minute: 'numeric',
@@ -69,13 +70,15 @@ export const VideoPage: FC = () => {
 
   return (
     <div>
-      <h2>Video</h2>
-      <h4>{query.get('name')}</h4>
-      <ReactPlayer controls={true} url={`/api/play/video/${video.user}/${video.name}`} />
-      <p>{login}</p>
-      <p>{video.title}</p>
-      <p>{new Date(video.date).toLocaleString('ru', dateOptions)}</p>
-      <AddComments videoId={query.get('name')} />
+      {isReady ? (
+        <>
+          <h2>{video.title}</h2>
+          <ReactPlayer controls={true} url={`/api/play/video/${video.user}/${video.name}`} />
+          <p>{login}</p>
+          <p>{new Date(video.date).toLocaleString('ru', dateOptions)}</p>
+          <AddComments videoId={query.get('name')} />
+        </>
+      ) : null}
     </div>
   );
 };

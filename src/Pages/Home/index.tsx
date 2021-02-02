@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import { VideoPage } from 'Pages/VideoPage';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
-import { Row, Col, Image, Container } from 'react-bootstrap';
+import { Card, CardColumns } from 'react-bootstrap';
+import { LoaderSpiner } from '../../components/LoadingComponent';
 interface IVideo {
   _id: string;
   path: string;
@@ -41,29 +42,31 @@ export function Home() {
   }, [getAllVideo]);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <LoaderSpiner />;
   }
 
   return (
     <>
       {!loading && (
-        <Container>
-          <Row xs={1} md={3}>
-            {allVideo.map((video, index) => {
-              return (
-                <Col xs={6} md={4} key={index}>
-                  <Link to={`/video?name=${video._id}`}>
-                    <Image width="300px" src={`http://localhost:3000/api/image/${video.name}.png`} rounded />
-
-                    <p>{video.title}</p>
-                  </Link>
-                </Col>
-              );
-            })}
-          </Row>
-        </Container>
+        <CardColumns>
+          {allVideo.map((video, index) => {
+            return (
+              <Link to={`/video?name=${video._id}`} key={index}>
+                <Card bg="dark" text="white">
+                  <Card.Img variant="top" src={`http://localhost:3000/api/image/${video.name}.png`} />
+                  <Card.Body>
+                    <Card.Title>{video.title}</Card.Title>
+                  </Card.Body>
+                  <Card.Footer>
+                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <small className="text-muted">{video.date}</small>
+                  </Card.Footer>
+                </Card>
+              </Link>
+            );
+          })}
+        </CardColumns>
       )}
-
     </>
   );
 }

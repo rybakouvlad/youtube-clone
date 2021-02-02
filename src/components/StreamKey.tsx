@@ -1,6 +1,7 @@
 import { AuthContext } from 'Pages/Auth/context/AuthContext';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { Accordion, Card, Button } from 'react-bootstrap';
 
 export const StreamKey: FC = () => {
   const { request } = useHttp();
@@ -25,8 +26,21 @@ export const StreamKey: FC = () => {
   }, [getKey]);
   return (
     <>
-      <h2>Stream key</h2>
-      <h2>{streamKey}</h2>
+      <Accordion defaultActiveKey="0">
+        <Card>
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="1">
+              Get key!
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>
+              <div>Key: {streamKey}</div>
+              <div>Link: </div>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     </>
   );
 };

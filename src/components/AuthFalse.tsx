@@ -9,6 +9,7 @@ import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
 import { Auth } from 'Pages/Auth';
 import { Player } from 'Pages/Player';
+import style from '../Styles/styles.scss';
 export const AuthFalse = () => {
   return (
     <React.Fragment>
@@ -24,26 +25,28 @@ export const AuthFalse = () => {
           <LogoutButton />
         </Form>
       </Navbar>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/video">
-          <VideoPage />
-        </Route>
-        <Route path="/content">
-          <Content />
-        </Route>
-        <Route path="/player">
-          <Player />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-      </Switch>
+      <section className={style.main}>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/video">
+            <VideoPage />
+          </Route>
+          <Route path="/content">
+            <Content />
+          </Route>
+          <Route path="/player">
+            <Player />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+        </Switch>
+      </section>
     </React.Fragment>
   );
 };
