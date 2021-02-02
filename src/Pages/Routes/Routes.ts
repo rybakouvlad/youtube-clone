@@ -19,7 +19,7 @@ export const Pages: Array<Route> = [
   },
   {
     link: '/content',
-    title: 'Content',
+    title: 'Lives',
     component: Content,
   },
   {

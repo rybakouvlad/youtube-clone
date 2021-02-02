@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import { VideoPage } from 'Pages/VideoPage';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
-import { Row, Col, Image, Container } from 'react-bootstrap';
+import { Card, CardColumns } from 'react-bootstrap';
+import { LoaderSpiner } from '../../components/LoadingComponent';
+import TimeAgo from 'react-timeago';
 interface IVideo {
   _id: string;
   path: string;
@@ -11,6 +13,7 @@ interface IVideo {
   size: number;
   user: string;
   title: string;
+  createdAt: Date;
 }
 // {
 //   "size": 1107701,
@@ -28,6 +31,8 @@ export function Home() {
     try {
       const data = await request('/api/file/all', 'GET', null);
       setAllVideo(data);
+      console.log(data);
+
       return true;
     } catch (e) {
       return false;
@@ -41,29 +46,32 @@ export function Home() {
   }, [getAllVideo]);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <LoaderSpiner />;
   }
 
   return (
     <>
       {!loading && (
-        <Container>
-          <Row xs={1} md={3}>
-            {allVideo.map((video, index) => {
-              return (
-                <Col xs={6} md={4} key={index}>
-                  <Link to={`/video?name=${video._id}`}>
-                    <Image width="300px" src={`http://localhost:3000/api/image/${video.name}.png`} rounded />
-
-                    <p>{video.title}</p>
-                  </Link>
-                </Col>
-              );
-            })}
-          </Row>
-        </Container>
+        <CardColumns>
+          {allVideo.map((video, index) => {
+            return (
+              <Link to={`/video?name=${video._id}`} key={index}>
+                <Card bg="dark" text="white">
+                  <Card.Img variant="top" src={`http://localhost:3000/api/image/${video.name}.png`} />
+                  <Card.Body>
+                    <Card.Title>{video.title}</Card.Title>
+                  </Card.Body>
+                  <Card.Footer>
+                    <small className="text-muted">
+                      <TimeAgo date={new Date(video.createdAt)} />
+                    </small>
+                  </Card.Footer>
+                </Card>
+              </Link>
+            );
+          })}
+        </CardColumns>
       )}
-
     </>
   );
 }

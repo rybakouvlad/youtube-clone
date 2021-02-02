@@ -1,10 +1,12 @@
-import React, { /* useContext */ useState } from 'react';
-// import { AuthContext } from '../context/AuthContext';
+import React, { FC, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHttp } from '../hooks/http.hook';
-import { Button, Form /* FormControl */ } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
-export const Register = () => {
-  //   const auth = useContext(AuthContext);
+interface ISet {
+  changeStatus(status: boolean): void;
+}
+export const Register: FC<ISet> = (props) => {
   const { loading, request /* , error, clearError  */ } = useHttp();
   const [form, setForm] = useState({
     email: '',
@@ -22,6 +24,9 @@ export const Register = () => {
 
       const data = await request('/api/register', 'POST', { ...form });
       console.log(data);
+      if (data.message === 'Пользователь создан') {
+        props.changeStatus(true);
+      }
     } catch (e) {}
   };
 
@@ -52,6 +57,10 @@ export const Register = () => {
       </Button>
     </Form>
   );
+};
+
+Register.propTypes = {
+  changeStatus: PropTypes.func,
 };
 
 export default Register;
