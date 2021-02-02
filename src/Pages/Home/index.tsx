@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import { Card, CardColumns } from 'react-bootstrap';
 import { LoaderSpiner } from '../../components/LoadingComponent';
+import TimeAgo from 'react-timeago';
 interface IVideo {
   _id: string;
   path: string;
@@ -12,6 +13,7 @@ interface IVideo {
   size: number;
   user: string;
   title: string;
+  createdAt: Date;
 }
 // {
 //   "size": 1107701,
@@ -29,6 +31,8 @@ export function Home() {
     try {
       const data = await request('/api/file/all', 'GET', null);
       setAllVideo(data);
+      console.log(data);
+
       return true;
     } catch (e) {
       return false;
@@ -58,8 +62,9 @@ export function Home() {
                     <Card.Title>{video.title}</Card.Title>
                   </Card.Body>
                   <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
-                    <small className="text-muted">{video.date}</small>
+                    <small className="text-muted">
+                      <TimeAgo date={new Date(video.createdAt)} />
+                    </small>
                   </Card.Footer>
                 </Card>
               </Link>

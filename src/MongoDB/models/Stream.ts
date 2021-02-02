@@ -2,7 +2,7 @@ import { model, Schema, Document } from 'mongoose';
 import { IUser } from './Users';
 
 export interface IStream extends Document {
-  title?: string;
+  title?: string | string[];
   key: string;
   user: IUser | string;
   lastId?: string;

@@ -10,14 +10,19 @@ export interface IFile extends Document {
   title?: string;
 }
 
-const File = new Schema({
-  name: { type: String, required: true },
-  size: { type: Number, default: 0 },
-  path: { type: String, default: '' },
-  date: { type: Date, default: Date.now() },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
-  title: { type: String, default: 'Some title' },
-});
+const File = new Schema(
+  {
+    name: { type: String, required: true },
+    size: { type: Number, default: 0 },
+    path: { type: String, default: '' },
+    date: { type: Date, default: Date.now() },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    title: { type: String, default: 'Some title' },
+  },
+  {
+    timestamps: true,
+  },
+);
 
 const FileModel = model<IFile>('File', File);
 

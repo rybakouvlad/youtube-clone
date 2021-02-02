@@ -48,7 +48,6 @@ export const AuthTrue: FC = () => {
             <Player />
           </Route>
         </Switch>
-        Ï
       </section>
     </React.Fragment>
   );

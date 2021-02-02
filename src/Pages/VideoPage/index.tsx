@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player';
 import { useLocation } from 'react-router-dom';
 import { LoaderSpiner } from '../../components/LoadingComponent';
 import { AddComments } from '../../components/CommentCreate';
-
+import TimeAgo from 'react-timeago';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -18,10 +18,11 @@ function useQuery() {
 // _id: "6010b23b8f7bef1640cd6883"
 interface IURL {
   _id: string;
-  date: Date;
+  date?: Date;
   user: string;
   name: string;
   title: string;
+  createdAt: Date;
 }
 
 export const VideoPage: FC = () => {
@@ -30,7 +31,7 @@ export const VideoPage: FC = () => {
   const [login, setLogin] = useState('');
   const [video, setVideo] = useState<IURL>({
     _id: '',
-    date: new Date('2021-01-31T04:19:37.967Z'),
+    createdAt: new Date('2021-01-31T04:19:37.967Z'),
     user: '60165c08c4e5086aec94f004',
     name: '',
     title: '',
@@ -59,14 +60,14 @@ export const VideoPage: FC = () => {
   if (loading) {
     return <LoaderSpiner />;
   }
-  const dateOptions = {
-    hour: 'numeric',
-    minute: 'numeric',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timezone: 'UTC',
-  };
+  // const dateOptions = {
+  //   hour: 'numeric',
+  //   minute: 'numeric',
+  //   year: 'numeric',
+  //   month: 'long',
+  //   day: 'numeric',
+  //   timezone: 'UTC',
+  // };
 
   return (
     <div>
@@ -75,7 +76,9 @@ export const VideoPage: FC = () => {
           <h2>{video.title}</h2>
           <ReactPlayer controls={true} url={`/api/play/video/${video.user}/${video.name}`} />
           <p>{login}</p>
-          <p>{new Date(video.date).toLocaleString('ru', dateOptions)}</p>
+          <p>
+            <TimeAgo date={new Date(video.createdAt)} />
+          </p>
           <AddComments videoId={query.get('name')} />
         </>
       ) : null}
