@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
-import { Button, Form /* FormControl */ } from 'react-bootstrap';
+import { Button, Form, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 export const Authorization = () => {
@@ -37,15 +37,22 @@ export const Authorization = () => {
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={form.password}
-          onChange={changeHandler}
-        />
+        <OverlayTrigger
+          key="top"
+          placement="top"
+          overlay={<Tooltip id="tooltip-top">Enter more than 6 symbols.</Tooltip>}
+        >
+          {/*<Form.Label>Password</Form.Label>*/}
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={form.password}
+            onChange={changeHandler}
+          />
+        </OverlayTrigger>
       </Form.Group>
+
       <Button variant="primary" type="submit" onClick={loginHandler} disabled={loading}>
         Login
       </Button>

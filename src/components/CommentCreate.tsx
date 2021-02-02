@@ -38,7 +38,7 @@ export function AddComments(videoId: any) {
     } catch (error) {}
   }, [getAllComments]);
   const [allComments, setAllComments] = useState<Array<IComment>>([
-    { id: '1', text: 'test', video: '1', user: '1', login: '1', date: new Date() },
+    { id: '', text: '', video: '', user: '', login: '', date: new Date() },
   ]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
