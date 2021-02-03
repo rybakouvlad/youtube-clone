@@ -2,10 +2,6 @@ import { spawn } from 'child_process';
 import ffmpegPath from 'ffmpeg-static';
 
 export const recordStream = (stream_key: string, path: string, name: string) => {
-  console.log(stream_key);
-  console.log(path);
-  console.log(name);
-
   const args = [
     '-y',
     '-i',

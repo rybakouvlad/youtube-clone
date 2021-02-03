@@ -14,9 +14,8 @@ export const useHttp = () => {
 
       const response = await fetch('http://178.124.178.250:3000' + url, { method, body, headers });
       const data = await response.json();
-      console.log('### ', data);
       if (!response.ok) {
-        throw new Error(data.message || 'Что-то пошло не так');
+        throw new Error(data.message || 'Something went wrong, try again.');
       }
 
       setLoading(false);

@@ -10,7 +10,6 @@ router.post('/pullComments', async (req: Request, res: Response) => {
     const comments = await Comments.find({ video: req.body.videoId });
     return res.json(comments);
   } catch (e) {
-    console.log(e);
     return res.status(500).json({ message: 'Can not get comments' });
   }
 });

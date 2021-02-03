@@ -16,16 +16,13 @@ export const StreamName: FC = () => {
   const submitNameHandler = async () => {
     try {
       if (form.name === '') {
-        console.log('Пустая строка');
         return;
       }
-      const data = await request('/api/stream/set-name', 'POST', null, {
+      await request('/api/stream/set-name', 'POST', null, {
         Authorization: `Bearer ${auth.token}`,
         streamname: form.name,
       });
       setForm({ name: '' });
-      console.log(data);
-
       return true;
     } catch (e) {
       return false;
