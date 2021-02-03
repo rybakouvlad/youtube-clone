@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Badge } from 'react-bootstrap';
+import { Badge, NavLink } from 'react-bootstrap';
 import Authorization from './components/Authorization';
 import Register from './components/Register';
 import { ToastCopmponent } from '../../components/ToastCopmponent';
@@ -38,16 +38,18 @@ export const Auth: FC = () => {
   };
 
   return (
-    <>
-      <div>{textHelp.isStatus ? <Register changeStatus={changeStatus} /> : <Authorization />}</div>
+    <div>
+      {textHelp.isStatus ? <Register changeStatus={changeStatus} /> : <Authorization />}
+
       <h6>
         {textHelp.help}{' '}
-        <Badge variant="secondary" onClick={changeHandler}>
+        <Badge as={NavLink} variant="dark" onClick={changeHandler}>
           {textHelp.status}
         </Badge>
       </h6>
+
       {showToast ? <ToastCopmponent show={showToast} message={'Пользователь создан'} changeShow={changeShow} /> : null}
-    </>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
 import { Player } from 'Pages/Player';
 import { Auth } from 'Pages/Auth';
-
+import style from '../Styles/styles.scss';
 export const AuthTrue: FC = () => {
   return (
     <React.Fragment>
@@ -27,7 +27,7 @@ export const AuthTrue: FC = () => {
           <LogInButton />
         </Form>
       </Navbar>
-      <section className="main">
+      <section className={style.main}>
         <Switch>
           <Route exact path="/">
             <Home />

@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import { AuthContext } from '../Pages/Auth/context/AuthContext';
-
+import style from '../Styles/styles.scss';
 interface IComment {
   id: string;
   text: string;
@@ -69,12 +69,12 @@ export function AddComments(videoId: any) {
   };
 
   return (
-    <div>
+    <div className={style.comment_wrapper}>
       {!loading &&
         allComments.map((comment: IComment, index) => {
           return (
-            <Card key={index}>
-              <Card.Header>
+            <Card className={style.card} key={index} bg="dark" text="white">
+              <Card.Header className={style.card_header}>
                 <span>{comment.login} </span>
                 <span>{new Date(comment.date).toLocaleString('ru', dateOptions)}</span>
               </Card.Header>
@@ -87,7 +87,7 @@ export function AddComments(videoId: any) {
           );
         })}
       {auth.token ? (
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3" style={{ marginTop: '1%' }}>
           <FormControl
             onChange={changeHandler}
             value={form.text}
@@ -97,7 +97,7 @@ export function AddComments(videoId: any) {
             aria-describedby="basic-addon2"
           />
           <InputGroup.Append>
-            <Button variant="outline-secondary" type="submit" onClick={addCommentHandler}>
+            <Button variant="dark" type="submit" onClick={addCommentHandler}>
               add
             </Button>
           </InputGroup.Append>

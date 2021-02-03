@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { VideoPage } from 'Pages/VideoPage';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import { Card, CardColumns } from 'react-bootstrap';
 import { LoaderSpiner } from '../../components/LoadingComponent';
@@ -15,15 +14,7 @@ interface IVideo {
   title: string;
   createdAt: Date;
 }
-// {
-//   "size": 1107701,
-//   "path": "",
-//   "date": "2021-01-26T21:50:20.579Z",
-//   "_id": "60108eab97916e647d2de24d",
-//   "name": "bus.png",
-//   "user": "5fff9ae15d9ece0edb8e5fc1",
-//   "__v": 0
-// }
+
 export function Home() {
   const { request, loading } = useHttp();
   const [allVideo, setAllVideo] = useState<Array<IVideo>>([]);

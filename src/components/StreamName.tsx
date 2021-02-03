@@ -34,10 +34,10 @@ export const StreamName: FC = () => {
 
   return (
     <>
-      <Accordion defaultActiveKey="0">
-        <Card>
+      <Accordion defaultActiveKey="0" style={{ marginTop: '10px' }}>
+        <Card bg="dark" text="white">
           <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="1">
+            <Accordion.Toggle as={Button} variant="secondary" eventKey="1" text="white">
               Set stream Name!
             </Accordion.Toggle>
           </Card.Header>
