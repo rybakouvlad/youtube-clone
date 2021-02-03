@@ -52,7 +52,7 @@ export default class fileRouters {
           size: sampleFile.size,
           path: sampleFile.tempFilePath,
           user: req.user,
-          title: req.headers.filetitle, //Исправил!!!!
+          title: req.headers.filetitle,
         });
 
         await dbFile.save();

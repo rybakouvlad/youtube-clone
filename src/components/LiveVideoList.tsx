@@ -14,11 +14,23 @@ interface IStreams {
 export const LiveVideoList: FC = () => {
   const [streamList, setStreamList] = useState<Array<IStreams>>([]);
 
+  // const a = () => {
+  //   try {
+  //     const data = await request(
+  //       '/api/comment/create',
+  //       'POST',
+  //       { ...form, ...videoId },
+  //       { Authorization: `Bearer ${auth.token}` },
+  //     );
+  //   }catch (e){
+  //
+  //   }
+  // }
   const getStreams = useCallback(async () => {
     try {
       const data = await axios.get('http://178.124.178.250:8080/api/streams');
       const arr: Array<IStreams> = [];
-
+      console.log('66666666',data)
       if (typeof data.data.live !== 'undefined') {
         for (const element in data.data.live) {
           arr.push({

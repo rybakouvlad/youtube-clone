@@ -48,9 +48,9 @@ export const Register: FC<ISet> = (props) => {
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" name="email" value={form.email} onChange={changeHandler} />
-        <Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
+        <Form.Text className="text-dark">Well never share your email with anyone else.</Form.Text>
       </Form.Group>
-
+      <Form.Label>Password</Form.Label>
       <Form.Group controlId="formBasicPassword">
         <OverlayTrigger
           key="top"
