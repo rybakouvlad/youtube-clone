@@ -19,7 +19,5 @@ export const Content: FC = () => {
     } catch (error) {}
   }, [getStreams]);
 
-  console.log(isStreams);
-
   return <>{isStreams ? <LiveVideoList /> : <h2>No streams</h2>}</>;
 };

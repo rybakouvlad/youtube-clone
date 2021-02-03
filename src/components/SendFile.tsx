@@ -27,8 +27,8 @@ export const SendFile: FC = () => {
     if (event.target.files[0].type === 'video/mp4') {
       setVideoFile({ videoFile, ...event });
     } else {
-      setToastMessage('Тип не подходит, надо mp4');
-      console.log('Тип не подходит');
+      setToastMessage('Type does not fit. Need mp4.');
+
       setShowToast(true);
     }
   };
@@ -64,9 +64,8 @@ export const SendFile: FC = () => {
     if (fileTitle.title !== '') {
       sendFile(videoFile, { Authorization: `Bearer ${auth.token}` }, fileTitle.title);
     } else {
-      setToastMessage('укажите название');
+      setToastMessage('Enter name.');
       setShowToast(true);
-      console.log('укажите название');
     }
     event.preventDefault();
   };

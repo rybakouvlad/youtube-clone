@@ -29,7 +29,7 @@ export const Register: FC<ISet> = (props) => {
   const registerHandler = async () => {
     try {
       const data = await request('/api/register', 'POST', { ...form });
-      if (data.message === 'Пользователь создан') {
+      if (data.message === 'User was created.') {
         props.changeStatus(true, true);
       }
     } catch (e) {}
