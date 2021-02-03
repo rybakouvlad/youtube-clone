@@ -9,7 +9,7 @@ router.get('/stream-key', auth, async (req: Request, res: Response) => {
     const user = await StreamModel.findOne({ user: req.user._id });
     return res.json(user.key);
   } catch (error) {
-    return res.status(500).json({ message: 'Can not get sream key' });
+    return res.status(500).json({ message: 'Can not get sream key.' });
   }
 });
 
@@ -18,7 +18,7 @@ router.post('/stream-name', async (req: Request, res: Response) => {
     const stream = await StreamModel.findOne({ key: req.body.streamname });
     return res.json(stream.title);
   } catch (error) {
-    return res.status(500).json({ message: 'Can not get sream name' });
+    return res.status(500).json({ message: 'Can not get sream name.' });
   }
 });
 
@@ -33,9 +33,9 @@ router.post('/set-name', auth, async (req: Request, res: Response) => {
         }
       }
     });
-    res.status(201).json({ message: 'Succses' });
+    res.status(201).json({ message: 'Succses.' });
   } catch (error) {
-    return res.status(500).json({ message: 'Can not save name sream key' });
+    return res.status(500).json({ message: 'Can not save name sream key.' });
   }
 });
 

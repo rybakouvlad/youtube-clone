@@ -35,7 +35,7 @@ export const VideoPage: FC = () => {
     try {
       const data = await request('/api/file/single', 'POST', null, { filename: query.get('name') });
 
-      const userLogin = await request('/api/getUserLogin', 'POST', null, { userId: data.user });
+      const userLogin = await request('/api/getUserLogin', 'POST', { userId: data.user });
       setVideo(data);
       setLogin(userLogin);
       setIsReady(true);

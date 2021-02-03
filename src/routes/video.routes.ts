@@ -6,7 +6,7 @@ const router = Router();
 router.get('/video/:id/:filename', (req: Request, res: Response) => {
   const range = req.headers.range;
   if (!range) {
-    res.status(400).send('Requires Range header');
+    res.status(400).send('Requires Range header.');
   }
 
   const videoPath = process.env.USER_FILE_PATH + `${req.params.id}/${req.params.filename}`;

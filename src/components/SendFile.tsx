@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { ToastCopmponent } from './ToastCopmponent';
 interface Event<T = EventTarget> {
   target: T;
-  // ...
 }
 interface authToke {
   Authorization: string;
@@ -84,6 +83,7 @@ export const SendFile: FC = () => {
           <Form.File id="formcheck-api-regular">
             <Form.File.Label>Regular file input</Form.File.Label>
             <Form.File.Input type="file" onChange={loadHandler} />
+            {showToast ? <ToastCopmponent show={showToast} message={toastMessage} changeShow={changeShow} /> : null}
             {videoFile ? (
               <InputGroup className="mb-3">
                 <FormControl
@@ -95,7 +95,7 @@ export const SendFile: FC = () => {
                   aria-describedby="basic-addon2"
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-secondary" type="submit" onClick={submitFileHandler}>
+                  <Button variant="dark" type="submit" onClick={submitFileHandler}>
                     submit
                   </Button>
                 </InputGroup.Append>
@@ -105,7 +105,6 @@ export const SendFile: FC = () => {
         </div>
       </Form>
       <div>{isLoad ? <ProgressBar now={loadPerCent} label={`${loadPerCent}%`} /> : null}</div>
-      {showToast ? <ToastCopmponent show={showToast} message={toastMessage} changeShow={changeShow} /> : null}
     </>
   );
 };

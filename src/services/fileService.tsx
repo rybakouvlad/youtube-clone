@@ -8,12 +8,12 @@ export default class FileService {
       try {
         if (!fs.existsSync(filePath)) {
           fs.mkdirSync(filePath);
-          return resolve({ message: 'File was created' });
+          return resolve({ message: 'File was created.' });
         } else {
-          return reject({ message: 'File already exist' });
+          return reject({ message: 'File already exists.' });
         }
       } catch (e) {
-        return reject({ message: 'File error' });
+        return reject({ message: 'File error.' });
       }
     });
   }

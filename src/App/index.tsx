@@ -4,6 +4,7 @@ import { AuthContext } from '../Pages/Auth/context/AuthContext';
 import { AuthTrue } from '../components/AuthTrue';
 import { AuthFalse } from '../components/AuthFalse';
 import { LoaderSpiner } from '../components/LoadingComponent';
+import { Footer } from '../components/Footer';
 
 export function App() {
   const { token, login, logout, userId, ready } = useAuth();
@@ -25,6 +26,7 @@ export function App() {
       }}
     >
       {auth ? <AuthFalse /> : <AuthTrue />}
+      <Footer />
     </AuthContext.Provider>
   );
 }

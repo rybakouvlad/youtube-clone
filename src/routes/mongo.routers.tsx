@@ -13,9 +13,9 @@ const fileService = new FileService();
 router.post(
   '/register',
   [
-    check('email', 'Некорректный email').isEmail(),
-    check('password', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
-    check('login', 'Минимальная длина пароля 6 символов').isLength({ min: 6 }),
+    check('email', 'Incorrect email.').isEmail(),
+    check('password', 'Minimum field length 6 characters.').isLength({ min: 6 }),
+    check('login', 'Minimum field length 6 characters.').isLength({ min: 6 }),
   ],
   async (req: Request, res: Response) => {
     try {
@@ -23,7 +23,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Некорректный данные при регистрации',
+          message: 'Incorrect data during registration.',
         });
       }
       const postData: { email: string; password: string; login: string } = {
@@ -35,7 +35,7 @@ router.post(
       const candidate = await User.findOne({ email: postData.email });
 
       if (candidate) {
-        return res.status(400).json({ message: 'Такой пользователь уже существует' });
+        return res.status(400).json({ message: 'Such user already exists.' });
       }
 
       const hashedPassword = await bcrypt.hash(postData.password, 12);
@@ -53,15 +53,15 @@ router.post(
       await stream.save();
       await user.save();
       await fileService.createDir(new File({ user: user._id, fileName: '' }));
-      res.status(201).json({ message: 'Пользователь создан' });
+      res.status(201).json({ message: 'User was created.' });
     } catch (e) {
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
+      res.status(500).json({ message: 'Something went wrong, try again.' });
     }
   },
 );
 router.post(
   '/login',
-  [check('email', 'Введите корректный email').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
+  [check('email', 'Enter correct email.').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
   async (req: Request, res: Response) => {
     try {
       const errors: Result<ValidationError> = validationResult(req);
@@ -81,7 +81,7 @@ router.post(
       const user = await User.findOne({ email: postData.email });
 
       if (!user) {
-        return res.status(400).json({ message: 'Пользователь не найден' });
+        return res.status(400).json({ message: 'User is not found.' });
       }
 
       const isMatch = await bcrypt.compare(postData.password, user.password);
@@ -100,7 +100,7 @@ router.post(
         });
       }
     } catch (e) {
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
+      res.status(500).json({ message: 'Something went wrong, try again.' });
     }
   },
 );
@@ -111,7 +111,7 @@ router.post('/getUserLogin', async (req: Request, res: Response) => {
 
     return res.json(user.login);
   } catch (e) {
-    return res.status(500).json({ message: 'Can not get user' });
+    return res.status(500).json({ message: 'Can not get user.' });
   }
 });
 

@@ -46,13 +46,12 @@ export function AddComments(videoId: any) {
 
   const addCommentHandler = async () => {
     try {
-      const data = await request(
+      await request(
         '/api/comment/create',
         'POST',
         { ...form, ...videoId },
         { Authorization: `Bearer ${auth.token}` },
       );
-      console.log(data);
 
       setForm({ text: '' });
       getAllComments();

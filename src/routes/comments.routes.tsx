@@ -15,13 +15,13 @@ router.post('/pullComments', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/create', auth, [check('text', 'Введите комментарий').exists()], async (req: Request, res: Response) => {
+router.post('/create', auth, [check('text', 'Enter comment.').exists()], async (req: Request, res: Response) => {
   try {
     const errors: Result<ValidationError> = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: 'Комментарий некорректный',
+        message: 'Comment is incorrect.',
       });
     }
     const comment = new Comments({
@@ -33,9 +33,9 @@ router.post('/create', auth, [check('text', 'Введите комментари
     });
 
     await comment.save();
-    res.status(201).json({ message: 'Комментарий создан' });
+    res.status(201).json({ message: 'Comment created.' });
   } catch (e) {
-    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
+    res.status(500).json({ message: 'Something went wrong, try again.' });
   }
 });
 

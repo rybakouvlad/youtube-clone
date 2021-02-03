@@ -6,7 +6,7 @@ const NodeMediaServer = require('node-media-server'),
 const nms = new NodeMediaServer(config);
 import StreamModel from '../MongoDB/models/Stream';
 import { generateStreamThumbnail } from './helpers/helper';
-import { generateVideoThumbnail } from '../services/thumbnail';
+// import { generateVideoThumbnail } from '../services/thumbnail';
 import { recordStream } from '../services/recordStream.ts';
 import File from '../MongoDB/models/File';
 nms.on('prePublish', async (id, StreamPath, args) => {
