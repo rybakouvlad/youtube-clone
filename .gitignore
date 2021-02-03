@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
-
+typings/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -69,7 +69,7 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variables file
-# .env
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -102,24 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-# System Files
-.DS_Store
-Thumbs.db
-[Dd]esktop.ini
-
-# Links
-*.lnk
-.idea/
-*.PEM
-.vscode/
-
-# Logs
-npm-debug.log
-
-# Block build and server
-/dist
-/server
-empty_moov
-movflags=frag_keyframe+empty_moov
-output.mp4
