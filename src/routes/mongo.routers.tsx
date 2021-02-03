@@ -112,7 +112,7 @@ router.post(
 
 router.post('/getUserLogin', async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ _id: req.body.userId });
+    const user = await User.findOne({ _id: req.headers.userid });
     console.log('$$$$$$$', user);
     return res.json(user.login);
   } catch (e) {

@@ -36,7 +36,7 @@ export const StreamKey: FC = () => {
           <Accordion.Collapse eventKey="1">
             <Card.Body>
               <div>Key: {streamKey}</div>
-              <div>Link: </div>
+              <div>Link: rtmp://178.124.178.250:1935/live</div>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

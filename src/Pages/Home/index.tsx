@@ -57,7 +57,7 @@ export function Home() {
             return (
               <Link to={`/video?name=${video._id}`} key={index}>
                 <Card bg="dark" text="white">
-                  <Card.Img variant="top" src={`http://localhost:3000/api/image/${video.name}.png`} />
+                  <Card.Img variant="top" src={`http://178.124.178.250:3000/api/image/${video.name}.png`} />
                   <Card.Body>
                     <Card.Title>{video.title}</Card.Title>
                   </Card.Body>

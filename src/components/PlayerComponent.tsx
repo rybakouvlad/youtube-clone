@@ -9,7 +9,7 @@ export function PlayerComponent() {
 
   return (
     <section className="player">
-      <ReactPlayer controls={true} url={`http://127.0.0.1:8080/live/${query.get('name')}/index.m3u8`} />
+      <ReactPlayer controls={true} url={`http://178.124.178.250:8080/live/${query.get('name')}/index.m3u8`} />
     </section>
   );
 }

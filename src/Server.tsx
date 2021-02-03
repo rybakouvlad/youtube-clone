@@ -14,7 +14,7 @@ import routers from './routes/export.routes';
 import mediaServer from '../src/broadcast/media_server.js';
 import liveThumbnail from '../src/broadcast/thumbnail/thumbnail.js';
 import './MongoDB/mongoDB';
-
+import cors from 'cors';
 const server = express();
 const jsFiles: Array<string> = [];
 const fileRouter = new fileRouters();
@@ -23,7 +23,7 @@ fs.readdirSync('./dist/assets').forEach((file) => {
   if (file.split('.').pop() === 'js') jsFiles.push(`/assets/${file}`);
 });
 server.use(express.json());
-
+server.use(cors());
 server.use(fileUpload({}));
 server.post('/api/files', auth, fileRouter.uploadFile);
 

@@ -34,7 +34,7 @@ export const SendFile = () => {
 
   const sendFile = (event: Event<HTMLInputElement>, header: authToke, fileTitle: string) => {
     superagent
-      .post('/api/files')
+      .post('http://178.124.178.250:3000/api/files')
       .attach('file', event.target.files[0])
       .on('progress', (event) => {
         if (!isLoad) {
