@@ -1,0 +1,18 @@
+.player_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player_items{
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.player_header{
+    display: flex;
+    justify-content: space-between;
+}
