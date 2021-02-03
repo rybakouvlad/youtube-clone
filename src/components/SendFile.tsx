@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Button, Form, FormControl, InputGroup, ProgressBar } from 'react-bootstrap';
 import superagent, { ResponseError, Response } from 'superagent';
 import { AuthContext } from '../Pages/Auth/context/AuthContext';
 import { useContext } from 'react';
-// import { StreamKey } from '../../components/StreamKey';
+import { ToastCopmponent } from './ToastCopmponent';
 interface Event<T = EventTarget> {
   target: T;
   // ...
@@ -11,20 +11,26 @@ interface Event<T = EventTarget> {
 interface authToke {
   Authorization: string;
 }
-export const SendFile = () => {
+export const SendFile: FC = () => {
+  const auth = useContext(AuthContext);
   const [videoFile, setVideoFile] = useState(null);
   const [fileTitle, setFileTitle] = useState({ title: '' });
   const [isLoad, setIsLoad] = useState(false);
   const [loadPerCent, setLoadPerCent] = useState(0);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFileTitle({ ...fileTitle, [event.target.name]: event.target.value });
   };
-  const auth = useContext(AuthContext);
+
   const loadHandler = (event: Event<HTMLInputElement>) => {
     if (event.target.files[0].type === 'video/mp4') {
       setVideoFile({ videoFile, ...event });
     } else {
+      setToastMessage('Тип не подходит, надо mp4');
       console.log('Тип не подходит');
+      setShowToast(true);
     }
   };
 
@@ -41,15 +47,13 @@ export const SendFile = () => {
           setIsLoad(true);
         }
         setLoadPerCent(event.percent);
-        console.log(event);
-      }) // sends a JSON post body
+      })
       .set(header)
       .set('fileTitle', fileTitle)
       .set('accept', 'json')
       .end(function (err: ResponseError, res: Response) {
-        // Calling the end function will send the request
-        console.log(`err:${err}`);
-        console.log(res);
+        setToastMessage(res.text);
+        setShowToast(true);
         if (res.status === 200) {
           setIsLoad(false);
           ClearForms();
@@ -61,10 +65,18 @@ export const SendFile = () => {
     if (fileTitle.title !== '') {
       sendFile(videoFile, { Authorization: `Bearer ${auth.token}` }, fileTitle.title);
     } else {
+      setToastMessage('укажите название');
+      setShowToast(true);
       console.log('укажите название');
     }
     event.preventDefault();
   };
+
+  const changeShow = (status: boolean) => {
+    setShowToast(status);
+    setToastMessage(null);
+  };
+
   return (
     <>
       <Form>
@@ -93,6 +105,7 @@ export const SendFile = () => {
         </div>
       </Form>
       <div>{isLoad ? <ProgressBar now={loadPerCent} label={`${loadPerCent}%`} /> : null}</div>
+      {showToast ? <ToastCopmponent show={showToast} message={toastMessage} changeShow={changeShow} /> : null}
     </>
   );
 };

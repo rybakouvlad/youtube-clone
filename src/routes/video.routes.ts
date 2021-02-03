@@ -12,11 +12,10 @@ router.get('/video/:id/:filename', (req: Request, res: Response) => {
   const videoPath = process.env.USER_FILE_PATH + `${req.params.id}/${req.params.filename}`;
   const videoSize = fs.statSync(videoPath).size;
 
-  const CHUNK_SIZE = 10 ** 6; // 1MB
+  const CHUNK_SIZE = 10 ** 6;
   const start = Number(range.replace(/\D/g, ''));
   const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
-  // Create headers
   const contentLength = end - start + 1;
   const headers = {
     'Content-Range': `bytes ${start}-${end}/${videoSize}`,
@@ -25,13 +24,10 @@ router.get('/video/:id/:filename', (req: Request, res: Response) => {
     'Content-Type': 'video/mp4',
   };
 
-  // HTTP Status 206 for Partial Content
   res.writeHead(206, headers);
 
-  // create video read stream for this particular chunk
   const videoStream = fs.createReadStream(videoPath, { start, end });
 
-  // Stream the video chunk to the client
   videoStream.pipe(res);
 });
 

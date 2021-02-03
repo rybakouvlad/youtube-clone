@@ -60,14 +60,6 @@ export const VideoPage: FC = () => {
   if (loading) {
     return <LoaderSpiner />;
   }
-  // const dateOptions = {
-  //   hour: 'numeric',
-  //   minute: 'numeric',
-  //   year: 'numeric',
-  //   month: 'long',
-  //   day: 'numeric',
-  //   timezone: 'UTC',
-  // };
 
   return (
     <div>

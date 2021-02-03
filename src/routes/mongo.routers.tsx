@@ -55,8 +55,6 @@ router.post(
       await fileService.createDir(new File({ user: user._id, fileName: '' }));
       res.status(201).json({ message: 'Пользователь создан' });
     } catch (e) {
-      console.log(e);
-
       res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' });
     }
   },
@@ -65,10 +63,9 @@ router.post(
   '/login',
   [check('email', 'Введите корректный email').normalizeEmail().isEmail(), check('password', 'Введите пароль').exists()],
   async (req: Request, res: Response) => {
-    // console.log(req.body);
     try {
       const errors: Result<ValidationError> = validationResult(req);
-      // console.log(req.body);
+
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
@@ -88,11 +85,9 @@ router.post(
       }
 
       const isMatch = await bcrypt.compare(postData.password, user.password);
-      // console.log(bcrypt.compare(postData.password, user.password));
 
       if (isMatch) {
         const token = createJWToken(user);
-        // console.log('kuku');
 
         res.json({
           status: 'success',
@@ -112,11 +107,10 @@ router.post(
 
 router.post('/getUserLogin', async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ _id: req.headers.userid });
-    console.log('$$$$$$$', user);
+    const user = await User.findOne({ _id: req.body.userId });
+
     return res.json(user.login);
   } catch (e) {
-    console.log(e);
     return res.status(500).json({ message: 'Can not get user' });
   }
 });

@@ -13,7 +13,6 @@ interface IComment {
 }
 
 export function AddComments(videoId: any) {
-  console.log('6666', videoId);
   const { request, loading } = useHttp();
   const auth = useContext(AuthContext);
 
@@ -53,9 +52,10 @@ export function AddComments(videoId: any) {
         { ...form, ...videoId },
         { Authorization: `Bearer ${auth.token}` },
       );
+      console.log(data);
+
       setForm({ text: '' });
       getAllComments();
-      console.log(data);
     } catch (e) {}
   };
 

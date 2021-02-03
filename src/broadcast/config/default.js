@@ -1,8 +1,4 @@
 const config = {
-  // server: {
-  //   secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
-  //   port: 3333,
-  // },
   rtmp_server: {
     rtmp: {
       port: 1935,
@@ -26,11 +22,6 @@ const config = {
           dash: true,
           dashFlags: '[f=dash:window_size=3:extra_window_size=5]',
         },
-        // {
-        //   app: 'live',
-        //   mp4: true,
-        //   mp4Flags: '[movflags=frag_keyframe+empty_moov]',
-        // },
       ],
     },
   },

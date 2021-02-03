@@ -20,7 +20,6 @@ nms.on('prePublish', async (id, StreamPath, args) => {
         session.reject();
       } else {
         generateStreamThumbnail(stream_key);
-        // recordStream(stream_key);
       }
     }
   });
@@ -34,16 +33,13 @@ nms.on('postPublish', (id, StreamPath, args) => {
         const session = nms.getSession(id);
         session.reject();
       } else {
-        console.log('!!!!! ' + key);
         key.lastId = id;
         key.save();
-        console.log('!!!!!22222 ' + key);
         generateStreamThumbnail(stream_key);
         recordStream(stream_key, key.user, id);
       }
     }
   });
-  // recordStream(stream_key);
 });
 nms.on('doneConnect', (id, args) => {
   console.log('[NodeEvent on doneConnect]', `id=${id} args=${JSON.stringify(args)}`);
@@ -60,11 +56,9 @@ nms.on('doneConnect', (id, args) => {
             title: stream.title,
           });
           await dbFile.save();
-          // setTimeout(generateVideoThumbnail(stream.user, id + '.mp4'), 2000);
         }
       }
     });
-    console.log(stream);
   } catch (error) {}
 });
 const getStreamKeyFromStreamPath = (path) => {

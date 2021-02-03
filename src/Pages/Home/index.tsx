@@ -31,8 +31,6 @@ export function Home() {
     try {
       const data = await request('/api/file/all', 'GET', null);
       setAllVideo(data);
-      console.log(data);
-
       return true;
     } catch (e) {
       return false;

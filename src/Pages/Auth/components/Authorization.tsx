@@ -1,17 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 import { Button, Form, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-
+import { ToastError } from '../../../components/ToastError';
 export const Authorization = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
-  const { loading, request /* , error, clearError  */ } = useHttp();
+  const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+  const [registeredMessage, setRegisteredMessage] = useState(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setRegisteredMessage(error);
+    setShow(true);
+  }, [error, clearError, setShow]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -21,13 +27,15 @@ export const Authorization = () => {
     try {
       const data = await request('/api/login', 'POST', { ...form });
       auth.login(data.token, data.userId);
-      console.log(data);
       if (data.status) {
         history.push('/');
       }
     } catch (e) {}
   };
 
+  const changeShow = (status: boolean) => {
+    setShow(status);
+  };
   return (
     <Form>
       <Form.Group controlId="formBasicEmail">
@@ -42,7 +50,6 @@ export const Authorization = () => {
           placement="top"
           overlay={<Tooltip id="tooltip-top">Enter more than 6 symbols.</Tooltip>}
         >
-          {/*<Form.Label>Password</Form.Label>*/}
           <Form.Control
             type="password"
             placeholder="Password"
@@ -56,6 +63,9 @@ export const Authorization = () => {
       <Button variant="primary" type="submit" onClick={loginHandler} disabled={loading}>
         Login
       </Button>
+      {registeredMessage ? (
+        <ToastError message={registeredMessage} show={show} changeShow={changeShow} clearError={clearError} />
+      ) : null}
     </Form>
   );
 };

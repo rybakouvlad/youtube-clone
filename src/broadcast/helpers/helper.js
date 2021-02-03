@@ -15,17 +15,5 @@ export const generateStreamThumbnail = (stream_key) => {
     './server/assets/files/thumbnail/' + stream_key + '.png',
   ];
 
-  // ffmpeg -i rtmp://127.0.0.1:1935/live/nF-8NLNUi  -ss 00:00:01 -vframes 1 /Users/vladrybakov/Documents/GitHub/youtube-clone/src/assets/img1.png
   spawn(ffmpegPath, args);
-  // result.stdout.on('data', (data) => {
-  //   console.log(`stdout: ${data}`);
-  // });
-
-  // result.stderr.on('data', (data) => {
-  //   console.log(`stderr: ${data}`);
-  // });
-
-  // result.on('close', (code) => {
-  //   console.log(`child process exited with code ${code}`);
-  // });
 };
