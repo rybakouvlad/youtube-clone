@@ -80,7 +80,7 @@ export const SendFile: FC = () => {
       <Form>
         <div className="mb-3">
           <Form.File id="formcheck-api-regular">
-            <Form.File.Label>Regular file input</Form.File.Label>
+            <Form.File.Label>Select file to add</Form.File.Label>
             <Form.File.Input type="file" onChange={loadHandler} />
             {showToast ? <ToastCopmponent show={showToast} message={toastMessage} changeShow={changeShow} /> : null}
             {videoFile ? (
@@ -103,7 +103,7 @@ export const SendFile: FC = () => {
           </Form.File>
         </div>
       </Form>
-      <div>{isLoad ? <ProgressBar now={loadPerCent} label={`${loadPerCent}%`} /> : null}</div>
+      <div>{isLoad ? <ProgressBar now={loadPerCent} label={`${Math.trunc(loadPerCent)}%`} /> : null}</div>
     </>
   );
 };

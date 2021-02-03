@@ -51,7 +51,7 @@ export const StreamName: FC = () => {
                 />
                 <InputGroup.Append>
                   <Button variant="outline-secondary" onClick={submitNameHandler}>
-                    Button
+                    submit
                   </Button>
                 </InputGroup.Append>
               </InputGroup>

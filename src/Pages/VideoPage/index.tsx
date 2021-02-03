@@ -62,7 +62,12 @@ export const VideoPage: FC = () => {
           <div className={style.player_container}>
             <div className={style.player_items}>
               <h2>{video.title}</h2>
-              <ReactPlayer controls={true} url={`http://178.124.178.250:3000/api/video/${video.user}/${video.name}`} />
+              <ReactPlayer
+                width="100%"
+                height="56%"
+                controls={true}
+                url={`http://178.124.178.250:3000/api/video/${video.user}/${video.name}`}
+              />
               <div className={style.player_header}>
                 <p>Add: {login}</p>
                 <p>
