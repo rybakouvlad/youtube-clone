@@ -48,7 +48,7 @@ export const Auth: FC = () => {
         </Badge>
       </h6>
 
-      {showToast ? <ToastCopmponent show={showToast} message={'Пользователь создан'} changeShow={changeShow} /> : null}
+      {showToast ? <ToastCopmponent show={showToast} message={'User was created.'} changeShow={changeShow} /> : null}
     </div>
   );
 };
