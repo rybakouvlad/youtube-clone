@@ -15,7 +15,7 @@ router.post(
   [
     check('email', 'Incorrect email.').isEmail(),
     check('password', 'Minimum field length 6 characters.').isLength({ min: 6 }),
-    check('login', 'Minimum field length 6 characters.').isLength({ min: 6 }),
+    check('login', 'Minimum field length 1 characters.').isLength({ min: 1 }),
   ],
   async (req: Request, res: Response) => {
     try {
@@ -69,7 +69,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Некорректный данные при входе в систему',
+          message: 'Incorrect login data.',
         });
       }
 
