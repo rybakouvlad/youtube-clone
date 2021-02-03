@@ -11,6 +11,7 @@ export default class fileRouters {
   async getAllFiles(req: Request, res: Response) {
     try {
       const files = await File.find({});
+      res.set('Access-Control-Allow-Origin', '*');
       return res.json(files);
     } catch (error) {
       return res.status(500).json({ message: 'Can not get files' });
@@ -19,7 +20,7 @@ export default class fileRouters {
 
   async getFile(req: Request, res: Response) {
     try {
-      const files = await File.findOne({ _id: req.body.filename });
+      const files = await File.findOne({ _id: req.headers.filename });
       return res.json(files);
     } catch (e) {
       return res.status(500).json({ message: 'Can not get files' });

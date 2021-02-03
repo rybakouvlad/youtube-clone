@@ -13,7 +13,7 @@ export const LiveVideoList: FC = () => {
 
   const getStreams = useCallback(async () => {
     try {
-      const data = await axios.get('http://localhost:8080/api/streams');
+      const data = await axios.get('http://178.124.178.250:8080/api/streams');
       const arr: Array<IStreams> = [];
 
       if (typeof data.data.live !== 'undefined') {
@@ -39,7 +39,7 @@ export const LiveVideoList: FC = () => {
         return (
           <Link to={`/player?name=${el.nameStream}&live=true`} key={i}>
             <Card bg="dark" text="white">
-              <Card.Img variant="top" src={`http://localhost:3000/api/image/${el.nameStream}.png`} />
+              <Card.Img variant="top" src={`http://178.124.178.250:3000/api/image/${el.nameStream}.png`} />
               <Card.Body>
                 <Card.Title>NAME</Card.Title>
               </Card.Body>

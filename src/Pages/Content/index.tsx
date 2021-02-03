@@ -13,7 +13,7 @@ export const Content: FC = () => {
 
   const getStreams = useCallback(async () => {
     try {
-      const data = await axios.get('http://localhost:8080/api/streams');
+      const data = await axios.get('http://178.124.178.250:8080/api/streams');
       if (typeof data.data.live !== 'undefined') {
         setIsStream(true);
       }

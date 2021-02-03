@@ -39,9 +39,9 @@ export const VideoPage: FC = () => {
   const [isReady, setIsReady] = useState(false);
   const getAllVideo = useCallback(async () => {
     try {
-      const data = await request('/api/file/single', 'POST', { filename: query.get('name') });
+      const data = await request('/api/file/single', 'POST', null, { filename: query.get('name') });
 
-      const userLogin = await request('/api/getUserLogin', 'POST', { userId: data.user });
+      const userLogin = await request('/api/getUserLogin', 'POST', null, { userId: data.user });
       setVideo(data);
       setLogin(userLogin);
       setIsReady(true);
@@ -74,7 +74,7 @@ export const VideoPage: FC = () => {
       {isReady ? (
         <>
           <h2>{video.title}</h2>
-          <ReactPlayer controls={true} url={`/api/play/video/${video.user}/${video.name}`} />
+          <ReactPlayer controls={true} url={`http://178.124.178.250:3000/api/video/${video.user}/${video.name}`} />
           <p>{login}</p>
           <p>
             <TimeAgo date={new Date(video.createdAt)} />
