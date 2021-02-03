@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { InputGroup, FormControl, Button, Card } from 'react-bootstrap';
 import { useHttp } from 'Pages/Auth/hooks/http.hook';
 import { AuthContext } from '../Pages/Auth/context/AuthContext';
-
+import style from '../Styles/styles.scss';
 interface IComment {
   id: string;
   text: string;
@@ -13,7 +13,6 @@ interface IComment {
 }
 
 export function AddComments(videoId: any) {
-  console.log('6666', videoId);
   const { request, loading } = useHttp();
   const auth = useContext(AuthContext);
 
@@ -38,7 +37,7 @@ export function AddComments(videoId: any) {
     } catch (error) {}
   }, [getAllComments]);
   const [allComments, setAllComments] = useState<Array<IComment>>([
-    { id: '1', text: 'test', video: '1', user: '1', login: '1', date: new Date() },
+    { id: '', text: '', video: '', user: '', login: '', date: new Date() },
   ]);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +52,10 @@ export function AddComments(videoId: any) {
         { ...form, ...videoId },
         { Authorization: `Bearer ${auth.token}` },
       );
+      console.log(data);
+
       setForm({ text: '' });
       getAllComments();
-      console.log(data);
     } catch (e) {}
   };
 
@@ -69,12 +69,12 @@ export function AddComments(videoId: any) {
   };
 
   return (
-    <div>
+    <div className={style.comment_wrapper}>
       {!loading &&
         allComments.map((comment: IComment, index) => {
           return (
-            <Card key={index}>
-              <Card.Header>
+            <Card className={style.card} key={index} bg="dark" text="white">
+              <Card.Header className={style.card_header}>
                 <span>{comment.login} </span>
                 <span>{new Date(comment.date).toLocaleString('ru', dateOptions)}</span>
               </Card.Header>
@@ -87,7 +87,7 @@ export function AddComments(videoId: any) {
           );
         })}
       {auth.token ? (
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3" style={{ marginTop: '1%' }}>
           <FormControl
             onChange={changeHandler}
             value={form.text}
@@ -97,7 +97,7 @@ export function AddComments(videoId: any) {
             aria-describedby="basic-addon2"
           />
           <InputGroup.Append>
-            <Button variant="outline-secondary" type="submit" onClick={addCommentHandler}>
+            <Button variant="dark" type="submit" onClick={addCommentHandler}>
               add
             </Button>
           </InputGroup.Append>

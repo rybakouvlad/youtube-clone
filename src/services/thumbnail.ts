@@ -14,18 +14,6 @@ export const generateVideoThumbnail = (userId: string, videoId: string) => {
     'scale=-2:300',
     './server/assets/files/thumbnail/' + videoId + '.png',
   ];
-  // -y -i /Users/vladrybakov/Documents/GitHub/youtube-clone/src/files/bigbuck.mp4 -ss 00:00:02 -vframes 1 -vf scale=-2:300 /Users/vladrybakov/Documents/GitHub/youtube-clone/src/files/3.png
 
   spawn(ffmpegPath, args);
-  // result.stdout.on('data', (data) => {
-  //   console.log(`stdout: ${data}`);
-  // });
-
-  // result.stderr.on('data', (data) => {
-  //   console.log(`stderr: ${data}`);
-  // });
-
-  // result.on('close', (code) => {
-  //   console.log(`child process exited with code ${code}`);
-  // });
 };

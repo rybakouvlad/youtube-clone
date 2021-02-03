@@ -3,9 +3,12 @@ import React from 'react';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { CardColumns, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import TimeAgo from 'react-timeago';
+
 interface IStreams {
   nameStream: string;
   date: Date;
+  // title: string;
 }
 
 export const LiveVideoList: FC = () => {
@@ -27,6 +30,7 @@ export const LiveVideoList: FC = () => {
       }
     } catch (error) {}
   }, []);
+
   useEffect(() => {
     try {
       getStreams();
@@ -41,10 +45,12 @@ export const LiveVideoList: FC = () => {
             <Card bg="dark" text="white">
               <Card.Img variant="top" src={`http://178.124.178.250:3000/api/image/${el.nameStream}.png`} />
               <Card.Body>
-                <Card.Title>NAME</Card.Title>
+                <Card.Title></Card.Title>
               </Card.Body>
               <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">
+                  <TimeAgo date={new Date(el.date)} />
+                </small>
               </Card.Footer>
             </Card>
           </Link>

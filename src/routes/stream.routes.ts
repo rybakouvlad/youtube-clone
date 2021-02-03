@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
 import StreamModel from '../MongoDB/models/Stream';
-// import { HookErrorCallback } from 'mongoose';
 import { IStream } from '../MongoDB/models/Stream';
+import auth from '../middleware/auth.middleware';
 const router = Router();
 
-router.get('/stream-key', async (req: Request, res: Response) => {
+router.get('/stream-key', auth, async (req: Request, res: Response) => {
   try {
     const user = await StreamModel.findOne({ user: req.user._id });
     return res.json(user.key);
@@ -13,15 +13,16 @@ router.get('/stream-key', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/stream-name', async (req: Request, res: Response) => {
+router.post('/stream-name', async (req: Request, res: Response) => {
   try {
-    const user = await StreamModel.findOne({ user: req.user._id });
-    return res.json(user.title);
+    const stream = await StreamModel.findOne({ key: req.body.streamname });
+    return res.json(stream.title);
   } catch (error) {
-    return res.status(500).json({ message: 'Can not get sream key' });
+    return res.status(500).json({ message: 'Can not get sream name' });
   }
 });
-router.post('/set-name', async (req: Request, res: Response) => {
+
+router.post('/set-name', auth, async (req: Request, res: Response) => {
   try {
     await StreamModel.findOne({ user: req.user._id }, async (err: any, element: IStream) => {
       if (!err) {

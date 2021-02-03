@@ -6,16 +6,10 @@ import { useLocation } from 'react-router-dom';
 import { LoaderSpiner } from '../../components/LoadingComponent';
 import { AddComments } from '../../components/CommentCreate';
 import TimeAgo from 'react-timeago';
+import style from './index.scss';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-// date: "2021-01-27T00:21:33.500Z"
-// name: "second.mp4"
-// path: ""
-// size: 63614462
-// user: "5fff9ae15d9ece0edb8e5fc1"
-// __v: 0
-// _id: "6010b23b8f7bef1640cd6883"
 interface IURL {
   _id: string;
   date?: Date;
@@ -60,25 +54,24 @@ export const VideoPage: FC = () => {
   if (loading) {
     return <LoaderSpiner />;
   }
-  // const dateOptions = {
-  //   hour: 'numeric',
-  //   minute: 'numeric',
-  //   year: 'numeric',
-  //   month: 'long',
-  //   day: 'numeric',
-  //   timezone: 'UTC',
-  // };
 
   return (
     <div>
       {isReady ? (
         <>
-          <h2>{video.title}</h2>
-          <ReactPlayer controls={true} url={`http://178.124.178.250:3000/api/video/${video.user}/${video.name}`} />
-          <p>{login}</p>
-          <p>
-            <TimeAgo date={new Date(video.createdAt)} />
-          </p>
+          <div className={style.player_container}>
+            <div className={style.player_items}>
+              <h2>{video.title}</h2>
+              <ReactPlayer controls={true} url={`http://178.124.178.250:3000/api/video/${video.user}/${video.name}`} />
+              <div className={style.player_header}>
+                <p>Add: {login}</p>
+                <p>
+                  <TimeAgo date={new Date(video.createdAt)} />
+                </p>
+              </div>
+            </div>
+          </div>
+
           <AddComments videoId={query.get('name')} />
         </>
       ) : null}
