@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Home } from 'Pages/Home';
 import { Content } from 'Pages/Content';
 import { Profile } from 'Pages/Profile';
+import { Youtube } from 'Pages/Youtube';
 interface Route {
   link: string;
   title: string;
@@ -25,5 +26,10 @@ export const Pages: Array<Route> = [
     link: '/profile',
     title: 'Profile',
     component: Profile,
+  },
+  {
+    link: '/send',
+    title: 'Youtube',
+    component: Youtube,
   },
 ];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Pages } from 'Pages/Routes/authFalse';
 import { LogoutButton } from './LogoutButton';
@@ -9,8 +9,10 @@ import { Profile } from 'Pages/Profile';
 import { VideoPage } from 'Pages/VideoPage';
 import { Auth } from 'Pages/Auth';
 import { Player } from 'Pages/Player';
+import { Youtube } from 'Pages/Youtube';
+
 import style from '../Styles/styles.scss';
-export const AuthFalse = () => {
+export const AuthFalse: FC = () => {
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
@@ -44,6 +46,9 @@ export const AuthFalse = () => {
           </Route>
           <Route path="/auth">
             <Auth />
+          </Route>
+          <Route path="/send">
+            <Youtube />
           </Route>
         </Switch>
       </section>

@@ -26,4 +26,5 @@ export const Pages: Array<Route> = [
     title: 'Player',
     component: Player,
   },
+  
 ];

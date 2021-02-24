@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { Home } from 'Pages/Home';
 import { Content } from 'Pages/Content';
-
+import { Youtube } from 'Pages/Youtube';
 import { Auth } from 'Pages/Auth';
 interface Route {
   link: string;
@@ -26,5 +26,10 @@ export const Pages: Array<Route> = [
     link: '/auth',
     title: 'Login',
     component: Auth,
+  },
+  {
+    link: '/send',
+    title: 'Youtube',
+    component: Youtube,
   },
 ];
