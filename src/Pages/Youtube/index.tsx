@@ -6,7 +6,7 @@ export const Youtube: FC = () => {
   const [isLoad, setLoad] = useState(false);
   const [fileName, setFileName] = useState('');
   console.log(isLoad);
-  console.log(fileName);
+
   return (
     <div>
       <h1>Youtube</h1>

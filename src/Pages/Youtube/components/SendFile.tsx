@@ -57,7 +57,6 @@ export const SendFile: FC<IProps> = (props: IProps) => {
         setShowToast(true);
         if (res.status === 200) {
           props.setFileName(text.fileName);
-          // props.setStatus(true);
           setIsLoad(false);
           ClearForms();
           setVideoFile(null);

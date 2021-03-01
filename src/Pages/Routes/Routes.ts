@@ -29,7 +29,7 @@ export const Pages: Array<Route> = [
   },
   {
     link: '/send',
-    title: 'Youtube',
+    title: 'MP4toRTMP',
     component: Youtube,
   },
 ];
